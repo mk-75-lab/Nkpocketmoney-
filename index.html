@@ -3,13 +3,10 @@
 <head>
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="おこづかい帳">
-    <meta charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="おこづかい帳">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>おこづかい帳</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,25 +17,13 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    screens: { 'ss': '320px' },
                     keyframes: {
-                        pulseCustom: {
-                            '0%, 100%': { transform: 'scale(1)' },
-                            '50%': { transform: 'scale(1.05)' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' }
-                        },
-                        trayUp: {
-                            '0%': { transform: 'translateY(100%)' },
-                            '100%': { transform: 'translateY(0)' }
-                        }
+                        pulseCustom: { '0%, 100%': { transform: 'scale(1)' }, '50%': { transform: 'scale(1.05)' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        trayUp: { '0%': { transform: 'translateY(100%)' }, '100%': { transform: 'translateY(0)' } }
                     },
-                    animation: {
-                        pulseCustom: 'pulseCustom 0.3s ease-in-out',
-                        slideUp: 'slideUp 0.3s ease-out',
-                        trayUp: 'trayUp 0.2s ease-out'
-                    }
+                    animation: { pulseCustom: 'pulseCustom 0.3s ease-in-out', slideUp: 'slideUp 0.3s ease-out', trayUp: 'trayUp 0.2s ease-out' }
                 }
             }
         }
@@ -48,42 +33,26 @@
         body { transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
         .dark input[type="month"]::-webkit-calendar-picker-indicator,
-        .dark input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1) brightness(2);
-        }
-        
+        .dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) brightness(2); }
         input[type=range] { @apply h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer; }
         input[type=range]::-webkit-slider-thumb { background: var(--primary-color); @apply w-7 h-7 rounded-full appearance-none shadow-md border-2 border-white; }
-        
         .text-main { @apply text-slate-950 dark:text-white; }
         .text-sub { @apply text-slate-800 dark:text-slate-100; }
-        
-        input, select, button, label, p, span, td, div {
-            font-size: 1.05rem;
-        }
-
+        input, select, button, label, p, span, td, div { font-size: 1.05rem; }
         .bg-primary { background-color: var(--primary-color); }
         .text-primary { color: var(--primary-color); }
         .border-primary { border-color: var(--primary-color); }
         .focus-border-primary:focus { border-color: var(--primary-color); }
-        
         .btn-toggle-active { background-color: var(--primary-color); color: white; transform: scale(1.05); z-index: 10; font-weight: 900; }
         .btn-toggle-inactive { @apply text-slate-400 dark:text-slate-500 bg-transparent font-bold; }
-
-        #input-amount::placeholder {
-            font-size: 1rem;
-            font-weight: 900;
-        }
+        #input-amount::placeholder, #input-desc::placeholder { font-size: 1.1rem; font-weight: 900; opacity: 0.5; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen p-4 md:p-8 pb-20 safe-pb font-sans font-medium">
     <div class="max-w-4xl mx-auto">
-        <!-- Header -->
         <div class="mb-8 pt-4 space-y-6">
             <h1 class="text-[2.2rem] font-black tracking-tighter text-main">おこづかい帳</h1>
-            
             <div class="flex items-center gap-4">
                 <div class="flex gap-2">
                     <button onclick="toggleSettingsModal()" class="p-4 rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition active:scale-90 text-slate-600 dark:text-slate-400">
@@ -94,223 +63,192 @@
                         <svg id="moon-icon" class="w-7 h-7 hidden dark:block text-yellow-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
                 </div>
-
                 <div class="flex-1 max-w-[220px] flex items-center bg-white dark:bg-slate-900 px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <input type="range" id="font-slider" min="14" max="26" step="1" value="16" oninput="changeFontSize(this.value)" class="w-full">
                 </div>
             </div>
         </div>
 
-        <!-- Monthly Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                <label class="block text-[0.9rem] font-black text-slate-400 uppercase mb-2">どの月を見る？</label>
-                <input type="month" id="view-month" onchange="render()" class="w-full bg-transparent font-black text-[1.3rem] outline-none text-primary cursor-pointer">
+                <label class="block text-[0.85rem] font-black text-slate-400 uppercase mb-2 tracking-widest">どの月を見る？</label>
+                <input type="month" id="view-month" onchange="render()" class="w-full bg-transparent font-black text-[1.2rem] outline-none text-primary cursor-pointer">
             </div>
             <div id="summary-container" class="md:col-span-2 grid grid-cols-3 gap-3">
-                <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[0.9rem] font-black text-green-500 uppercase mb-1">もらった</label>
-                    <div id="total-income" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+                    <label class="block text-[0.8rem] font-black text-green-500 uppercase mb-1 tracking-widest">もらった</label>
+                    <div id="total-income" class="text-[1.2rem] sm:text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[0.9rem] font-black text-red-500 uppercase mb-1">つかった</label>
-                    <div id="total-expense" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+                    <label class="block text-[0.8rem] font-black text-red-500 uppercase mb-1 tracking-widest">つかった</label>
+                    <div id="total-expense" class="text-[1.2rem] sm:text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
-                <div id="balance-card" class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[0.9rem] font-black text-primary uppercase mb-1">のこり</label>
-                    <div id="total-balance" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
+                <div id="balance-card" class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+                    <label class="block text-[0.8rem] font-black text-primary uppercase mb-1 tracking-widest">のこり</label>
+                    <div id="total-balance" class="text-[1.2rem] sm:text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
             </div>
         </div>
 
-        <!-- Input Form -->
-        <div class="bg-white dark:bg-slate-900 p-7 rounded-[2.5rem] shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-8 relative">
-            <div class="flex items-center justify-between mb-8">
+        <div class="bg-white dark:bg-slate-900 p-5 sm:p-8 rounded-[2.5rem] shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-8 relative">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
                 <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" class="fill-current text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" class="fill-current text-primary">
                         <path d="M480-520q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM200-400q-33 0-56.5-23.5T120-480v-320q0-33 23.5-56.5T200-880h560q33 0 56.5 23.5T840-800v320q0 33-23.5 56.5T760-400H200Zm80-80h400q0-33 23.5-56.5T760-560v-160q-33 0-56.5-23.5T680-800H280q0 33-23.5 56.5T200-720v160q33 0 56.5 23.5T280-480Zm-80 0v-320 320ZM480-80l160-160-56-56-64 64v-128h-80v128l-64-64-56 56L480-80Z"/>
                     </svg>
-                    <h2 class="text-[1.4rem] font-black uppercase tracking-widest text-main">新しくメモする</h2>
+                    <h2 class="text-[1.2rem] font-black uppercase tracking-widest text-main">新しくメモする</h2>
                 </div>
-                
-                <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl w-48 relative overflow-hidden">
-                    <button onclick="setInputType('expense')" id="type-expense-btn" class="flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active">つかった</button>
-                    <button onclick="setInputType('income')" id="type-income-btn" class="flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive">もらった</button>
+                <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl w-full sm:w-48 relative overflow-hidden">
+                    <button onclick="setInputType('expense')" id="type-expense-btn" class="flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-active">つかった</button>
+                    <button onclick="setInputType('income')" id="type-income-btn" class="flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-inactive">もらった</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="date" id="input-date" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:bg-white dark:focus:bg-slate-950 outline-none focus-border-primary transition font-black text-[1.1rem]">
+                <select id="input-category" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.1rem]"></select>
+                <input type="text" id="input-desc" placeholder="何を買ったの？" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.1rem]">
+                <div class="relative flex items-center">
+                    <input type="number" id="input-amount" placeholder="いくら？" class="w-full p-5 pr-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none font-black text-[1.6rem] tabular-nums focus-border-primary transition text-main">
+                    <button onclick="toggleTenkeyTray()" class="absolute right-3 p-2 bg-slate-200 dark:bg-slate-700 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-600 transition active:scale-90 text-slate-800 dark:text-slate-100 shadow-sm border border-slate-300 dark:border-slate-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 7V4a2 2 0 012-2h4a2 2 0 012 2v3m-2 6h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4a2 2 0 012-2zM2 11h4a2 2 0 012 2v4a2 2 0 01-2 2H2a2 2 0 01-2-2v-4a2 2 0 012-2zM14 2h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V4a2 2 0 012-2z"></path></svg>
+                    </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-[1.1rem] font-black mb-3 text-sub">いつ？</label>
-                        <input type="date" id="input-date" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:bg-white dark:focus:bg-slate-950 outline-none focus-border-primary transition font-black text-[1.2rem]">
-                    </div>
-                    <div>
-                        <label class="block text-[1.1rem] font-black mb-3 text-sub">どれ？</label>
-                        <select id="input-category" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.2rem]"></select>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <div>
-                        <label id="input-desc-label" class="block text-[1.1rem] font-black mb-3 text-sub">なに？</label>
-                        <input type="text" id="input-desc" placeholder="何を買ったの？" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.2rem]">
-                    </div>
-                    <div>
-                        <label class="block text-[1.1rem] font-black mb-3 text-sub">いくら？</label>
-                        <div class="relative flex items-center">
-                            <input type="number" id="input-amount" placeholder="金額を書いてね" class="w-full p-5 pr-20 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none font-black text-[1.8rem] tabular-nums focus-border-primary transition text-main">
-                            <button onclick="toggleTenkeyTray()" class="absolute right-3 p-3 bg-slate-200 dark:bg-slate-700 rounded-2xl hover:bg-slate-300 dark:hover:bg-slate-600 transition active:scale-90 text-slate-800 dark:text-slate-100 shadow-sm border border-slate-300 dark:border-slate-600">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 7V4a2 2 0 012-2h4a2 2 0 012 2v3m-2 6h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4a2 2 0 012-2zM2 11h4a2 2 0 012 2v4a2 2 0 01-2 2H2a2 2 0 01-2-2v-4a2 2 0 012-2zM14 2h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V4a2 2 0 012-2z"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button onclick="addRecord()" class="mt-10 w-full bg-primary hover:opacity-90 text-white font-black py-6 rounded-[2.5rem] transition transform active:scale-[0.97] shadow-2xl shadow-blue-500/30 text-[1.5rem] flex items-center justify-center gap-4">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+            <button onclick="addRecord()" class="mt-8 w-full bg-primary hover:opacity-90 text-white font-black py-5 rounded-[2rem] transition transform active:scale-[0.97] shadow-2xl shadow-blue-500/30 text-[1.3rem] flex items-center justify-center gap-4">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                 記録するよ！
             </button>
         </div>
 
-        <!-- Filtering Grid -->
-        <div class="flex justify-between items-center mb-6 px-2">
-            <label id="history-header-label" class="text-[1.1rem] font-black uppercase tracking-widest text-main">種類ごとに分ける（つかった）</label>
-            <div class="flex bg-slate-200 dark:bg-slate-800 p-1.5 rounded-2xl gap-2">
-                 <button onclick="setViewType('expense')" id="view-expense-btn" class="px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary">つかった</button>
-                 <button onclick="setViewType('income')" id="view-income-btn" class="px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400">もらった</button>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2">
+            <label id="history-header-label" class="text-[0.95rem] font-black uppercase tracking-widest text-main">カテゴリー別（つかった）</label>
+            <div class="flex bg-slate-200 dark:bg-slate-800 p-1.5 rounded-2xl gap-2 w-full sm:w-auto">
+                 <button onclick="setViewType('expense')" id="view-expense-btn" class="flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary">つかった</button>
+                 <button onclick="setViewType('income')" id="view-income-btn" class="flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all text-slate-400">もらった</button>
             </div>
         </div>
-        <div id="summary-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-5 mb-12"></div>
+        <div id="summary-grid" class="grid gap-2 sm:gap-5 mb-12 transition-all duration-300"></div>
 
-        <!-- History Table Section -->
-        <div class="bg-white dark:bg-slate-900 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden mb-8">
-            <div class="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50 text-main font-black uppercase tracking-widest text-[1rem]">
+        <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden mb-8">
+            <div class="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50 text-main font-black uppercase tracking-widest text-[0.9rem]">
                 <h3 id="history-title">最近のまとめ</h3>
-                <span id="history-count" class="bg-blue-100 dark:bg-blue-900 text-primary px-6 py-1.5 rounded-full text-[1rem]">0件</span>
+                <span id="history-count" class="bg-blue-100 dark:bg-blue-900 text-primary px-5 py-1 rounded-full text-[0.85rem]">0件</span>
             </div>
             <div id="history-container" class="max-h-[600px] overflow-y-auto no-scrollbar">
                 <table class="w-full text-left border-collapse">
                     <tbody id="record-list" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
                 </table>
             </div>
-            <div id="empty-state" class="hidden p-24 text-center font-black text-slate-400 text-[1.2rem] leading-relaxed">
-                まだなにもないよ(´;ω;`)ﾌﾞﾜｯ
-            </div>
+            <div id="empty-state" class="hidden p-16 text-center font-black text-slate-400 text-[1.1rem]">まだなにもないよ(´;ω;`)</div>
         </div>
 
-        <!-- Weekly Summary Visualization (New Section) -->
-        <div id="weekly-section" class="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-8 overflow-hidden">
-            <h3 class="font-black mb-8 text-main text-[1.1rem] uppercase tracking-widest">しゅうかんのまとめ</h3>
-            <div id="weekly-bars-container" class="space-y-6">
-                <!-- Weekly bars will be injected here -->
-            </div>
+        <div id="weekly-section" class="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-[2.5rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-8 overflow-hidden">
+            <h3 class="font-black mb-8 text-main text-[0.95rem] uppercase tracking-widest">しゅうかんのまとめ</h3>
+            <div id="weekly-bars-container" class="space-y-6"></div>
         </div>
 
-        <!-- Reward Chart Visualization -->
-        <div id="chart-section" class="bg-white dark:bg-slate-900 p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-12 text-center">
-            <h3 id="chart-title" class="font-black mb-12 text-main text-[1.1rem] uppercase tracking-widest">おサイフのバランス</h3>
-            <div class="relative max-w-[340px] mx-auto aspect-square">
+        <div id="chart-section" class="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-[2.5rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-12 text-center">
+            <h3 id="chart-title" class="font-black mb-10 text-main text-[0.95rem] uppercase tracking-widest">おサイフのバランス</h3>
+            <div class="relative max-w-[300px] mx-auto aspect-square">
                 <canvas id="expense-chart"></canvas>
             </div>
         </div>
 
-        <!-- Data Management Actions -->
-        <div class="flex flex-col items-center gap-8 py-12 border-t border-slate-200 dark:border-slate-800">
-            <p class="text-[1rem] font-black uppercase tracking-[0.4em] text-slate-400">データの管理</p>
-            <div class="flex gap-6 mb-12">
-                <button onclick="exportData()" class="flex items-center gap-4 px-10 py-5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.8rem] font-black transition active:scale-95 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-700">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                    保存
-                </button>
-                <label class="flex items-center gap-4 px-10 py-5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.8rem] font-black transition active:scale-95 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                    読込
-                    <input type="file" id="import-input" accept="application/json" class="hidden" onchange="importData(event)">
+        <div class="flex flex-col items-center gap-6 py-12 border-t border-slate-200 dark:border-slate-800">
+            <p class="text-[0.85rem] font-black uppercase tracking-[0.4em] text-slate-400">データの管理</p>
+            <div class="flex gap-4">
+                <button onclick="exportData()" class="flex items-center gap-3 px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.5rem] font-black transition active:scale-95 border-2 border-transparent">保存</button>
+                <label class="flex items-center gap-3 px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.5rem] font-black transition active:scale-95 border-2 border-transparent cursor-pointer">
+                    読込<input type="file" id="import-input" accept="application/json" class="hidden" onchange="importData(event)">
                 </label>
             </div>
-            <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-700">
-                <p class="text-[1.1rem] font-black tracking-widest text-main">Copyright &copy; 2026 MASAKI. All rights reserved.</p>
+            <div class="text-center opacity-40">
+                <p class="text-[0.9rem] font-black tracking-widest text-main">Copyright &copy; 2026 MASAKI. All rights reserved.</p>
             </div>
         </div>
     </div>
 
-    <!-- Modals -->
-    <div id="toast-container" class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[2000] w-full max-w-sm pointer-events-none px-4"></div>
+    <div id="toast-container" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[2000] w-full max-w-sm pointer-events-none px-4"></div>
 
-    <div id="settings-modal" class="fixed inset-0 z-[1100] hidden flex items-center justify-center p-6 bg-slate-950/70 backdrop-blur-md">
-        <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-slideUp flex flex-col max-h-[90vh] border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div class="flex justify-between items-center mb-10 shrink-0">
-                <h3 class="text-[2rem] font-black text-main tracking-tight">設定しよう</h3>
-                <button onclick="toggleSettingsModal()" class="p-4 text-main hover:bg-slate-100 dark:hover:bg-slate-800 rounded-3xl transition"><svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+    <div id="settings-modal" class="fixed inset-0 z-[1100] hidden flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-md">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[2.5rem] p-6 sm:p-10 shadow-2xl animate-slideUp flex flex-col max-h-[90vh] border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <div class="flex justify-between items-center mb-8 shrink-0">
+                <h3 class="text-[1.6rem] font-black text-main tracking-tight">設定しよう</h3>
+                <button onclick="toggleSettingsModal()" class="p-3 text-main hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition"><svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
-            <div class="flex-1 overflow-y-auto no-scrollbar space-y-12 pr-1">
+            <div class="flex-1 overflow-y-auto no-scrollbar space-y-10 pr-1">
                 <section>
-                    <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500 mb-6">メインカラー</label>
-                    <div class="flex flex-wrap gap-5" id="theme-color-palette"></div>
+                    <label class="block text-[0.9rem] font-black uppercase tracking-widest text-slate-500 mb-5">メインカラー</label>
+                    <div class="grid grid-cols-6 gap-2" id="theme-color-palette"></div>
                 </section>
                 <section>
-                    <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500 mb-6">表示スタイル</label>
-                    <div class="flex gap-5">
-                        <button id="layout-list-btn" onclick="updateLayout('list')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.2rem]">リスト</button>
-                        <button id="layout-card-btn" onclick="updateLayout('card')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.2rem]">カード</button>
+                    <label class="block text-[0.9rem] font-black uppercase tracking-widest text-slate-500 mb-5">カテゴリー表示スタイル</label>
+                    <div class="flex gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+                        <button id="summary-layout-list" onclick="updateSummaryLayout('list')" class="flex-1 py-3 rounded-xl font-black transition">リスト</button>
+                        <button id="summary-layout-grid2" onclick="updateSummaryLayout('grid2')" class="flex-1 py-3 rounded-xl font-black transition">2列</button>
+                        <button id="summary-layout-grid3" onclick="updateSummaryLayout('grid3')" class="flex-1 py-3 rounded-xl font-black transition">3列</button>
                     </div>
                 </section>
                 <section>
-                    <div class="flex justify-between items-center mb-6">
-                        <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500">カテゴリーの管理</label>
-                        <div class="flex bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl">
-                            <button onclick="setCategoryManageType('expense')" id="cat-manage-expense" class="px-6 py-2 rounded-xl text-[1rem] font-black transition bg-white dark:bg-slate-700 shadow-sm">つかった</button>
-                            <button onclick="setCategoryManageType('income')" id="cat-manage-income" class="px-6 py-2 rounded-xl text-[1rem] font-black transition text-slate-400">もらった</button>
+                    <label class="block text-[0.9rem] font-black uppercase tracking-widest text-slate-500 mb-5">表示スタイル</label>
+                    <div class="flex gap-4">
+                        <button id="layout-list-btn" onclick="updateLayout('list')" class="flex-1 py-4 rounded-[1.2rem] border-2 font-black transition">リスト</button>
+                        <button id="layout-card-btn" onclick="updateLayout('card')" class="flex-1 py-4 rounded-[1.2rem] border-2 font-black transition">カード</button>
+                    </div>
+                </section>
+                <section>
+                    <div class="flex flex-col gap-4 mb-5">
+                        <label class="block text-[0.9rem] font-black uppercase tracking-widest text-slate-500">カテゴリーの管理</label>
+                        <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl w-full">
+                            <button onclick="setCategoryManageType('expense')" id="cat-manage-expense" class="flex-1 py-2 rounded-lg text-[0.85rem] font-black transition bg-white dark:bg-slate-700 shadow-sm">つかった</button>
+                            <button onclick="setCategoryManageType('income')" id="cat-manage-income" class="flex-1 py-2 rounded-lg text-[0.85rem] font-black transition text-slate-400">もらった</button>
                         </div>
                     </div>
-                    <div class="space-y-6 mb-10">
-                        <div class="flex gap-4">
-                            <input type="text" id="new-category-name" placeholder="新しいカテゴリ名" class="flex-1 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent font-black outline-none text-main focus-border-primary text-[1.2rem]">
-                            <button onclick="addCategory()" class="bg-primary text-white px-8 rounded-2xl font-black shadow-md active:scale-95 transition text-[1.1rem]">追加</button>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="text" id="new-category-name" placeholder="新しいカテゴリ名" class="flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent font-black outline-none text-main focus-border-primary">
+                            <button onclick="addCategory()" class="bg-primary text-white py-4 sm:px-8 rounded-xl font-black shadow-md active:scale-95 transition">追加</button>
                         </div>
-                        <div class="flex flex-wrap gap-4 justify-center" id="new-category-palette"></div>
+                        <div class="grid grid-cols-6 gap-2" id="new-category-palette"></div>
                     </div>
-                    <ul id="category-edit-list" class="space-y-7 pb-8"></ul>
+                    <ul id="category-edit-list" class="space-y-5 pb-6"></ul>
                 </section>
             </div>
         </div>
     </div>
 
     <div id="confirm-modal" class="fixed inset-0 z-[1200] hidden flex items-center justify-center p-6 bg-slate-950/70 backdrop-blur-md">
-        <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[3.5rem] p-14 shadow-2xl border border-slate-200 dark:border-slate-800 text-center">
-            <h3 id="confirm-title" class="text-[1.8rem] font-black mb-6 text-main">かくにん</h3>
-            <p id="confirm-body" class="text-slate-800 dark:text-slate-200 mb-14 text-[1.4rem] leading-relaxed">本当に実行してもいい？</p>
-            <div class="flex flex-col gap-6">
-                <button id="confirm-action-btn" class="w-full py-6 rounded-[2rem] bg-red-600 text-white font-black text-[1.4rem] shadow-xl active:scale-95 transition">けすよ</button>
-                <button onclick="closeConfirm()" class="w-full py-6 rounded-[2rem] bg-slate-100 dark:bg-slate-800 text-main font-bold text-[1.3rem]">やっぱりやめる</button>
+        <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[2.5rem] p-10 shadow-2xl border border-slate-200 dark:border-slate-800 text-center">
+            <h3 id="confirm-title" class="text-[1.5rem] font-black mb-4 text-main">かくにん</h3>
+            <p id="confirm-body" class="text-slate-600 dark:text-slate-300 mb-10 text-[1.1rem]">本当にいい？</p>
+            <div class="flex flex-col gap-4">
+                <button id="confirm-action-btn" class="w-full py-5 rounded-[1.5rem] bg-red-600 text-white font-black text-[1.2rem] shadow-xl active:scale-95 transition">けすよ</button>
+                <button onclick="closeConfirm()" class="w-full py-5 rounded-[1.5rem] bg-slate-100 dark:bg-slate-800 text-main font-bold">やめる</button>
             </div>
         </div>
     </div>
 
-    <!-- Custom Tenkey Tray -->
     <div id="tenkey-overlay" onclick="toggleTenkeyTray()" class="fixed inset-0 bg-slate-950/30 backdrop-blur-[6px] z-[1400] hidden"></div>
-    <div id="tenkey-tray" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t-2 border-slate-200 dark:border-slate-700 rounded-t-[4rem] z-[1500] hidden transform transition-transform animate-trayUp p-12 safe-pb shadow-2xl">
+    <div id="tenkey-tray" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t-2 border-slate-200 dark:border-slate-700 rounded-t-[3rem] z-[1500] hidden transform transition-transform animate-trayUp p-6 sm:p-10 safe-pb shadow-2xl">
         <div class="max-w-md mx-auto">
-            <div class="flex justify-between items-center mb-10 px-5">
-                <span class="text-[1.1rem] font-black uppercase tracking-[0.3em] text-slate-400">金額を入力</span>
-                <span id="tenkey-current-val" class="font-mono font-black text-primary text-[1.4rem]">0</span>
-            </div>
-            <div id="tenkey-display" class="w-full p-10 mb-12 text-right text-[4.2rem] font-black tabular-nums border-b-8 border-primary text-main bg-slate-50 dark:bg-slate-800/50 rounded-[3rem]">0</div>
-            <div class="grid grid-cols-3 gap-6">
-                <button onclick="pressTenkey('1')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">1</button>
-                <button onclick="pressTenkey('2')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">2</button>
-                <button onclick="pressTenkey('3')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">3</button>
-                <button onclick="pressTenkey('4')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">4</button>
-                <button onclick="pressTenkey('5')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">5</button>
-                <button onclick="pressTenkey('6')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">6</button>
-                <button onclick="pressTenkey('7')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">7</button>
-                <button onclick="pressTenkey('8')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">8</button>
-                <button onclick="pressTenkey('9')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">9</button>
-                <button onclick="pressTenkey('B')" class="h-28 bg-slate-200 dark:bg-slate-700 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition flex items-center justify-center shadow-sm">
-                    <svg class="w-16 h-16" fill="none" stroke="currentColor" stroke-width="4" viewBox="0 0 24 24"><path d="M12 19l-7-7 7-7m5 14l-7-7 7-7"></path></svg>
+            <div id="tenkey-display" class="w-full p-6 sm:p-8 mb-8 text-right text-[3rem] sm:text-[4rem] font-black tabular-nums border-b-4 border-primary text-main bg-slate-50 dark:bg-slate-800/50 rounded-[2rem]">0</div>
+            <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                <button onclick="pressTenkey('1')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">1</button>
+                <button onclick="pressTenkey('2')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">2</button>
+                <button onclick="pressTenkey('3')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">3</button>
+                <button onclick="pressTenkey('4')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">4</button>
+                <button onclick="pressTenkey('5')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">5</button>
+                <button onclick="pressTenkey('6')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">6</button>
+                <button onclick="pressTenkey('7')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">7</button>
+                <button onclick="pressTenkey('8')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">8</button>
+                <button onclick="pressTenkey('9')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">9</button>
+                <button onclick="pressTenkey('B')" class="h-20 sm:h-24 bg-slate-200 dark:bg-slate-700 rounded-2xl flex items-center justify-center active:bg-primary active:text-white transition">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="4" viewBox="0 0 24 24"><path d="M12 19l-7-7 7-7m5 14l-7-7 7-7"></path></svg>
                 </button>
-                <button onclick="pressTenkey('0')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">0</button>
-                <button onclick="pressTenkey('D')" class="h-28 bg-primary text-white rounded-[2.5rem] text-[2rem] font-black active:scale-95 transition shadow-lg">完了</button>
+                <button onclick="pressTenkey('0')" class="h-20 sm:h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl text-[2rem] font-black active:bg-primary active:text-white transition">0</button>
+                <button onclick="pressTenkey('D')" class="h-20 sm:h-24 bg-primary text-white rounded-2xl text-[1.5rem] font-black active:scale-95 transition">完了</button>
             </div>
         </div>
     </div>
@@ -318,9 +256,11 @@
     <script>
         const REC_KEY = 'pm_records_v11';
         const CAT_KEY = 'pm_categories_v11';
-        const CONFIG_KEY = 'pm_config_v4';
-
-        const COLOR_PALETTE = ['#2563eb', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316', '#14b8a6', '#64748b'];
+        const CONFIG_KEY = 'pm_config_v5';
+        const COLOR_PALETTE = [
+            '#2563eb', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', 
+            '#06b6d4', '#f97316', '#14b8a6', '#64748b', '#a3e635', '#fb7185'
+        ];
 
         let records = JSON.parse(localStorage.getItem(REC_KEY)) || [];
         let categories = JSON.parse(localStorage.getItem(CAT_KEY));
@@ -342,7 +282,7 @@
             ];
         }
 
-        let appConfig = JSON.parse(localStorage.getItem(CONFIG_KEY)) || { primaryColor: '#2563eb', layout: 'list' };
+        let appConfig = JSON.parse(localStorage.getItem(CONFIG_KEY)) || { primaryColor: '#2563eb', layout: 'list', summaryLayout: 'grid3' };
         let activeNewCategoryColor = COLOR_PALETTE[0];
         let chartInstance = null;
         let selectedCategory = null;
@@ -350,14 +290,12 @@
         const setTodayDate = () => {
             const now = new Date();
             const offset = now.getTimezoneOffset() * 60000;
-            const localISODate = new Date(now - offset).toISOString().split('T')[0];
-            document.getElementById('input-date').value = localISODate;
+            document.getElementById('input-date').value = new Date(now - offset).toISOString().split('T')[0];
         };
 
         const init = () => {
             setTodayDate();
-            const today = new Date();
-            document.getElementById('view-month').value = today.toISOString().substring(0, 7);
+            document.getElementById('view-month').value = new Date().toISOString().substring(0, 7);
             document.documentElement.className = localStorage.getItem('theme') || 'light';
             const savedSize = localStorage.getItem('pm_font_size') || '16';
             document.getElementById('font-slider').value = savedSize;
@@ -373,18 +311,18 @@
             const expBtn = document.getElementById('type-expense-btn');
             const incBtn = document.getElementById('type-income-btn');
             const descInput = document.getElementById('input-desc');
-            const descLabel = document.getElementById('input-desc-label');
+            const amountInput = document.getElementById('input-amount');
             
             if (type === 'expense') {
-                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active';
-                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive';
-                descInput.placeholder = '何を買ったの？';
-                descLabel.innerText = 'なに？';
+                expBtn.className = 'flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-active';
+                incBtn.className = 'flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-inactive';
+                descInput.placeholder = 'なにを買った？';
+                amountInput.placeholder = 'いくら？';
             } else {
-                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active';
-                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive';
-                descInput.placeholder = 'どこから入った？';
-                descLabel.innerText = 'どこから？';
+                incBtn.className = 'flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-active';
+                expBtn.className = 'flex-1 py-3 rounded-xl text-[1rem] transition-all duration-300 z-10 btn-toggle-inactive';
+                descInput.placeholder = 'どこからもらった？';
+                amountInput.placeholder = 'いくらもらった？';
             }
             updateCategoryUI();
         }
@@ -394,16 +332,14 @@
             selectedCategory = null;
             const expBtn = document.getElementById('view-expense-btn');
             const incBtn = document.getElementById('view-income-btn');
-            const header = document.getElementById('history-header-label');
-            
             if (type === 'expense') {
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400';
-                header.innerText = '種類ごとに分ける（つかった）';
+                expBtn.className = 'flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
+                incBtn.className = 'flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all text-slate-400';
+                document.getElementById('history-header-label').innerText = 'カテゴリー別（つかった）';
             } else {
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400';
-                header.innerText = '種類ごとに分ける（もらった）';
+                incBtn.className = 'flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
+                expBtn.className = 'flex-1 sm:px-6 py-2 rounded-xl text-[0.9rem] font-black transition-all text-slate-400';
+                document.getElementById('history-header-label').innerText = 'カテゴリー別（もらった）';
             }
             render();
         }
@@ -413,197 +349,141 @@
             const expBtn = document.getElementById('cat-manage-expense');
             const incBtn = document.getElementById('cat-manage-income');
             if (type === 'expense') {
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition bg-white dark:bg-slate-700 shadow-sm';
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition text-slate-400';
+                expBtn.className = 'flex-1 py-2 rounded-lg text-[0.85rem] font-black transition bg-white dark:bg-slate-700 shadow-sm';
+                incBtn.className = 'flex-1 py-2 rounded-lg text-[0.85rem] font-black transition text-slate-400';
             } else {
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition bg-white dark:bg-slate-700 shadow-sm';
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition text-slate-400';
+                incBtn.className = 'flex-1 py-2 rounded-lg text-[0.85rem] font-black transition bg-white dark:bg-slate-700 shadow-sm';
+                expBtn.className = 'flex-1 py-2 rounded-lg text-[0.85rem] font-black transition text-slate-400';
             }
             renderCategoryEditList();
         }
 
         function applyConfig() {
             document.documentElement.style.setProperty('--primary-color', appConfig.primaryColor);
-            setInputType(inputType);
-            setViewType(viewType);
+            setInputType(inputType); setViewType(viewType);
             const listBtn = document.getElementById('layout-list-btn');
             const cardBtn = document.getElementById('layout-card-btn');
-            if (appConfig.layout === 'list') {
-                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.1rem]';
-                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.1rem]';
-            } else {
-                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.1rem]';
-                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.1rem]';
-            }
+            const activeStyle = 'flex-1 py-4 rounded-[1.2rem] border-2 font-black transition bg-primary text-white border-primary shadow-lg';
+            const inactiveStyle = 'flex-1 py-4 rounded-[1.2rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400';
+            listBtn.className = appConfig.layout === 'list' ? activeStyle : inactiveStyle;
+            cardBtn.className = appConfig.layout === 'card' ? activeStyle : inactiveStyle;
+
+            ['list', 'grid2', 'grid3'].forEach(l => {
+                const btn = document.getElementById(`summary-layout-${l}`);
+                if (btn) btn.className = appConfig.summaryLayout === l ? 'flex-1 py-3 rounded-xl font-black transition bg-primary text-white' : 'flex-1 py-3 rounded-xl font-black transition text-slate-400';
+            });
         }
 
-        function updateLayout(type) {
-            appConfig.layout = type;
-            localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig));
-            applyConfig();
-            render();
-        }
-
-        function updatePrimaryColor(color) {
-            appConfig.primaryColor = color;
-            localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig));
-            applyConfig();
-            render();
-            renderSettingsModal(); 
-        }
-
-        function toggleSettingsModal() {
-            const modal = document.getElementById('settings-modal');
-            modal.classList.toggle('hidden');
-            if (!modal.classList.contains('hidden')) renderSettingsModal();
-        }
+        function updateLayout(type) { appConfig.layout = type; localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); applyConfig(); render(); }
+        function updateSummaryLayout(type) { appConfig.summaryLayout = type; localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); applyConfig(); render(); }
+        function updatePrimaryColor(color) { appConfig.primaryColor = color; localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); applyConfig(); render(); renderSettingsModal(); }
+        function toggleSettingsModal() { const m = document.getElementById('settings-modal'); m.classList.toggle('hidden'); if (!m.classList.contains('hidden')) renderSettingsModal(); }
 
         function renderSettingsModal() {
             const palette = document.getElementById('theme-color-palette');
-            palette.innerHTML = COLOR_PALETTE.map(color => `
-                <button onclick="updatePrimaryColor('${color}')" class="w-14 h-14 rounded-[1.2rem] border-4 transition-all ${color === appConfig.primaryColor ? 'border-slate-950 dark:border-white scale-110 shadow-xl' : 'border-transparent opacity-50 hover:opacity-100'}" style="background-color: ${color}"></button>
+            palette.innerHTML = COLOR_PALETTE.map(c => `
+                <button onclick="updatePrimaryColor('${c}')" class="w-full aspect-square rounded-xl border-4 transition-all ${c === appConfig.primaryColor ? 'border-slate-900 dark:border-white scale-110 shadow-lg' : 'border-transparent opacity-50'}" style="background-color: ${c}"></button>
             `).join('');
             renderCategoryEditList();
         }
 
         function toggleTenkeyTray() {
-            const tray = document.getElementById('tenkey-tray');
-            const overlay = document.getElementById('tenkey-overlay');
-            const isHidden = tray.classList.contains('hidden');
-            if (isHidden) {
-                const currentVal = document.getElementById('input-amount').value || '0';
-                document.getElementById('tenkey-display').innerText = (parseInt(currentVal) || 0).toLocaleString();
-                tray.classList.remove('hidden'); overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+            const t = document.getElementById('tenkey-tray'); const o = document.getElementById('tenkey-overlay');
+            const isH = t.classList.contains('hidden');
+            if (isH) {
+                document.getElementById('tenkey-display').innerText = (parseInt(document.getElementById('input-amount').value) || 0).toLocaleString();
+                t.classList.remove('hidden'); o.classList.remove('hidden'); document.body.style.overflow = 'hidden';
             } else {
-                tray.classList.add('hidden'); overlay.classList.add('hidden');
-                document.body.style.overflow = '';
+                t.classList.add('hidden'); o.classList.add('hidden'); document.body.style.overflow = '';
             }
         }
 
         function pressTenkey(val) {
             const input = document.getElementById('input-amount');
-            let currentStr = input.value || '0';
+            let cur = input.value || '0';
             if (val === 'D') { toggleTenkeyTray(); return; }
-            else if (val === 'B') currentStr = currentStr.slice(0, -1) || '0';
-            else {
-                if (currentStr === '0') currentStr = val;
-                else currentStr += val;
-            }
-            if (parseInt(currentStr) > 99999999) currentStr = '99999999';
-            input.value = currentStr;
-            document.getElementById('tenkey-display').innerText = (parseInt(currentStr) || 0).toLocaleString();
-            document.getElementById('tenkey-current-val').innerText = (parseInt(currentStr) || 0).toLocaleString();
+            if (val === 'B') cur = cur.slice(0, -1) || '0';
+            else cur = (cur === '0' ? val : cur + val);
+            if (parseInt(cur) > 99999999) cur = '99999999';
+            input.value = cur;
+            document.getElementById('tenkey-display').innerText = (parseInt(cur) || 0).toLocaleString();
         }
 
         function initNewCategoryPalette() {
-            const container = document.getElementById('new-category-palette');
-            container.innerHTML = COLOR_PALETTE.map(color => `
-                <button onclick="selectNewCategoryColor('${color}')" class="w-10 h-10 rounded-full border-2 transition-all ${color === activeNewCategoryColor ? 'border-slate-950 dark:border-white scale-110 shadow-lg' : 'border-transparent opacity-40'}" style="background-color: ${color}"></button>
+            document.getElementById('new-category-palette').innerHTML = COLOR_PALETTE.map(c => `
+                <button onclick="selectNewCategoryColor('${c}')" class="w-full aspect-square rounded-full border-2 transition-all ${c === activeNewCategoryColor ? 'border-slate-900 dark:border-white scale-110 shadow-md' : 'border-transparent opacity-40'}" style="background-color: ${c}"></button>
             `).join('');
         }
 
-        function selectNewCategoryColor(color) { activeNewCategoryColor = color; initNewCategoryPalette(); }
+        function selectNewCategoryColor(c) { activeNewCategoryColor = c; initNewCategoryPalette(); }
+        function changeFontSize(s) { document.documentElement.style.fontSize = s + 'px'; localStorage.setItem('pm_font_size', s); if (chartInstance) render(); }
 
-        function changeFontSize(size) {
-            document.documentElement.style.fontSize = size + 'px';
-            localStorage.setItem('pm_font_size', size);
-            if (chartInstance) render(); 
-        }
-
-        function showToast(message) {
+        function showToast(m) {
             const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 px-12 py-6 rounded-[2.5rem] shadow-2xl text-center font-black mb-5 animate-slideUp pointer-events-auto border-2 border-primary/30 text-[1.1rem]';
-            toast.innerText = message;
-            container.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 200); }, 3500);
+            const t = document.createElement('div');
+            t.className = 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-8 py-4 rounded-[2rem] shadow-2xl text-center font-black mb-4 animate-slideUp pointer-events-auto border-2 border-primary/30';
+            t.innerText = m; container.appendChild(t);
+            setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
         }
 
         function toggleDarkMode() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-            render();
+            const html = document.documentElement; html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light'); render();
         }
 
         function updateCategoryUI() {
-            const select = document.getElementById('input-category');
-            const filtered = categories.filter(c => c.type === inputType);
-            select.innerHTML = filtered.map(c => `<option value="${escapeHTML(c.name)}">${escapeHTML(c.name)}</option>`).join('');
+            const sel = document.getElementById('input-category');
+            const fil = categories.filter(c => c.type === inputType);
+            sel.innerHTML = fil.map(c => `<option value="${escapeHTML(c.name)}">${escapeHTML(c.name)}</option>`).join('');
         }
 
-        function escapeHTML(str) {
-            return str.replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
-            });
-        }
+        function escapeHTML(s) { return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
         function renderCategoryEditList() {
             const list = document.getElementById('category-edit-list');
-            const filtered = categories.filter(c => c.type === categoryManageType);
-            list.innerHTML = filtered.map((c) => {
-                const globalIdx = categories.findIndex(orig => orig.name === c.name && orig.type === c.type);
-                return `
-                <li class="p-8 bg-slate-50 dark:bg-slate-800/40 rounded-[2.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-sm">
-                    <div class="flex gap-5 mb-6">
-                        <input type="text" value="${escapeHTML(c.name)}" onchange="renameCategory(${globalIdx}, this.value)" class="flex-1 bg-white dark:bg-slate-950 p-5 rounded-2xl border-2 border-transparent font-black outline-none focus-border-primary text-main shadow-inner text-[1.1rem]">
-                        <button onclick="requestCategoryDelete(${globalIdx})" class="text-red-500 p-3 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-2xl transition">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
+            const fil = categories.filter(c => c.type === categoryManageType);
+            list.innerHTML = fil.map((c) => {
+                const idx = categories.findIndex(orig => orig.name === c.name && orig.type === c.type);
+                return `<li class="p-4 ss:p-6 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border-2 border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center gap-2 ss:gap-3 mb-4">
+                        <input type="text" value="${escapeHTML(c.name)}" onchange="renameCategory(${idx}, this.value)" class="flex-1 min-w-0 bg-white dark:bg-slate-950 p-4 rounded-xl border-2 border-transparent font-black outline-none focus-border-primary text-main">
+                        <button onclick="requestCategoryDelete(${idx})" class="text-red-500 p-2 shrink-0"><svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                     </div>
-                    <div class="flex flex-wrap gap-4">
-                        ${COLOR_PALETTE.map(color => `
-                            <button onclick="updateCategoryColor(${globalIdx}, '${color}')" class="w-10 h-10 rounded-full border-2 transition-all ${color === c.color ? 'border-slate-950 dark:border-white scale-110 shadow-xl' : 'border-transparent opacity-40 hover:opacity-100'}" style="background-color: ${color}"></button>
-                        `).join('')}
+                    <div class="grid grid-cols-6 gap-2">
+                        ${COLOR_PALETTE.map(col => `<button onclick="updateCategoryColor(${idx}, '${col}')" class="w-full aspect-square rounded-full border-2 transition-all ${col === c.color ? 'border-slate-900 dark:border-white scale-110 shadow-md' : 'border-transparent opacity-40'}" style="background-color: ${col}"></button>`).join('')}
                     </div>
                 </li>`;
             }).join('');
         }
 
-        function renameCategory(index, newName) {
-            newName = newName.trim(); if (!newName) return;
-            const oldName = categories[index].name;
-            const type = categories[index].type;
-            if (oldName === newName) return;
-            if (categories.some((c, i) => i !== index && c.name === newName && c.type === type)) {
-                showToast("名前がかぶってるよ！"); renderCategoryEditList(); return;
-            }
-            records = records.map(r => (r.category === oldName && r.type === type) ? { ...r, category: newName } : r);
-            categories[index].name = newName;
-            saveData(); updateCategoryUI(); render(); showToast("カテゴリー名を変えたよ");
+        function renameCategory(i, n) {
+            n = n.trim(); if (!n || categories[i].name === n) return;
+            if (categories.some((c, idx) => idx !== i && c.name === n && c.type === categories[i].type)) { showToast("名前がかぶってるよ！"); renderCategoryEditList(); return; }
+            records = records.map(r => (r.category === categories[i].name && r.type === categories[i].type) ? {...r, category: n} : r);
+            categories[i].name = n; saveData(); updateCategoryUI(); render(); showToast("カテゴリー名を変えたよ");
         }
 
-        function updateCategoryColor(index, color) {
-            categories[index].color = color; saveData(); renderCategoryEditList(); render(); showToast("色を変えたよ");
-        }
+        function updateCategoryColor(i, c) { categories[i].color = c; saveData(); renderCategoryEditList(); render(); showToast("色を変えたよ"); }
 
         function addCategory() {
-            const input = document.getElementById('new-category-name');
-            const name = input.value.trim();
-            if (!name) return;
-            if (categories.some(c => c.name === name && c.type === categoryManageType)) {
-                showToast("もうあるカテゴリーだよ"); return;
-            }
+            const input = document.getElementById('new-category-name'); const name = input.value.trim(); if (!name) return;
+            if (categories.some(c => c.name === name && c.type === categoryManageType)) { showToast("もうあるカテゴリーだよ"); return; }
             categories.push({ name, color: activeNewCategoryColor, type: categoryManageType });
             saveData(); input.value = ''; updateCategoryUI(); renderCategoryEditList(); render(); showToast("新しく追加したよ！");
         }
 
-        function requestCategoryDelete(index) {
-            const cat = categories[index];
+        function requestCategoryDelete(i) {
+            const cat = categories[i];
             document.getElementById('confirm-title').innerText = "カテゴリー削除";
             document.getElementById('confirm-body').innerText = `「${cat.name}」を履歴ごと消しちゃうよ？`;
             document.getElementById('confirm-modal').classList.remove('hidden');
             document.getElementById('confirm-action-btn').onclick = () => {
                 records = records.filter(r => !(r.category === cat.name && r.type === cat.type));
-                categories.splice(index, 1);
-                saveData(); updateCategoryUI(); renderCategoryEditList(); closeConfirm(); render(); showToast("削除しました");
+                categories.splice(i, 1); saveData(); updateCategoryUI(); renderCategoryEditList(); closeConfirm(); render(); showToast("削除しました");
             };
         }
 
-        function toggleFilter(catName) {
-            selectedCategory = (selectedCategory === catName) ? null : catName; render();
-        }
+        function toggleFilter(c) { selectedCategory = (selectedCategory === c) ? null : c; render(); }
 
         function addRecord() {
             const date = document.getElementById('input-date').value;
@@ -612,221 +492,133 @@
             const amount = parseInt(document.getElementById('input-amount').value);
             if (!date || isNaN(amount) || amount <= 0) { showToast("金額を教えてね"); return; }
             records.unshift({ id: Date.now(), date, category, desc, amount, type: inputType });
-            
-            document.getElementById('input-desc').value = '';
-            document.getElementById('input-amount').value = '';
-            setTodayDate(); 
-            
-            saveData(); render();
-            confetti({ particleCount: 150, spread: 90, origin: { y: 0.7 } });
-            document.getElementById('balance-card').classList.add('animate-pulseCustom');
-            setTimeout(() => document.getElementById('balance-card').classList.remove('animate-pulseCustom'), 500);
+            document.getElementById('input-desc').value = ''; document.getElementById('input-amount').value = ''; setTodayDate();
+            saveData(); render(); confetti({ particleCount: 150, spread: 90, origin: { y: 0.7 } });
+            const b = document.getElementById('balance-card'); b.classList.add('animate-pulseCustom');
+            setTimeout(() => b.classList.remove('animate-pulseCustom'), 500);
         }
 
         function requestDelete(id) {
             document.getElementById('confirm-title').innerText = "履歴の削除";
             document.getElementById('confirm-body').innerText = "この履歴を消しても大丈夫？";
             document.getElementById('confirm-modal').classList.remove('hidden');
-            document.getElementById('confirm-action-btn').onclick = () => {
-                records = records.filter(r => r.id !== id); saveData(); closeConfirm(); render(); showToast("履歴を消しました");
-            };
+            document.getElementById('confirm-action-btn').onclick = () => { records = records.filter(r => r.id !== id); saveData(); closeConfirm(); render(); showToast("履歴を消しました"); };
         }
 
         function closeConfirm() { document.getElementById('confirm-modal').classList.add('hidden'); }
-        function saveData() { localStorage.setItem(REC_KEY, JSON.stringify(records)); localStorage.setItem(CAT_KEY, JSON.stringify(categories)); }
+        function saveData() { localStorage.setItem(REC_KEY, JSON.stringify(records)); localStorage.setItem(CAT_KEY, JSON.stringify(categories)); localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); }
 
         function render() {
-            const targetMonth = document.getElementById('view-month').value;
-            const monthlyRecords = records.filter(r => r.date.startsWith(targetMonth));
-            const list = document.getElementById('record-list');
-            const summaryGrid = document.getElementById('summary-grid');
-            list.innerHTML = ''; summaryGrid.innerHTML = '';
+            const targetM = document.getElementById('view-month').value;
+            const mRecs = records.filter(r => r.date.startsWith(targetM));
+            const list = document.getElementById('record-list'); const grid = document.getElementById('summary-grid');
+            list.innerHTML = ''; grid.innerHTML = '';
             
-            let incTotal = 0; let expTotal = 0;
-            const summaryData = {};
-            categories.filter(c => c.type === viewType).forEach(cat => summaryData[cat.name] = 0);
+            grid.className = 'grid gap-2 sm:gap-5 mb-12 transition-all duration-300';
+            if (appConfig.summaryLayout === 'list') {
+                grid.classList.add('grid-cols-1');
+            } else if (appConfig.summaryLayout === 'grid2') {
+                grid.classList.add('grid-cols-2');
+            } else {
+                grid.classList.add('grid-cols-3');
+            }
 
-            monthlyRecords.forEach(r => {
-                if (r.type === 'income') incTotal += r.amount;
-                else expTotal += r.amount;
-                if (r.type === viewType && summaryData.hasOwnProperty(r.category)) summaryData[r.category] += r.amount;
+            let inc = 0, exp = 0; const sumData = {};
+            categories.filter(c => c.type === viewType).forEach(c => sumData[c.name] = 0);
+            mRecs.forEach(r => {
+                if (r.type === 'income') inc += r.amount; else exp += r.amount;
+                if (r.type === viewType && sumData.hasOwnProperty(r.category)) sumData[r.category] += r.amount;
             });
 
-            document.getElementById('total-income').innerText = `¥${incTotal.toLocaleString()}`;
-            document.getElementById('total-expense').innerText = `¥${expTotal.toLocaleString()}`;
-            const bal = incTotal - expTotal;
-            const balEl = document.getElementById('total-balance');
-            balEl.innerText = `¥${bal.toLocaleString()}`;
-            balEl.className = bal >= 0 ? 'text-[1.5rem] font-black tabular-nums text-primary' : 'text-[1.5rem] font-black tabular-nums text-red-500';
+            document.getElementById('total-income').innerText = `¥${inc.toLocaleString()}`;
+            document.getElementById('total-expense').innerText = `¥${exp.toLocaleString()}`;
+            const bal = inc - exp; const bEl = document.getElementById('total-balance');
+            bEl.innerText = `¥${bal.toLocaleString()}`;
+            bEl.className = bal >= 0 ? 'text-[1.2rem] sm:text-[1.5rem] font-black tabular-nums text-primary' : 'text-[1.2rem] sm:text-[1.5rem] font-black tabular-nums text-red-500';
 
-            const filteredRecords = monthlyRecords.filter(r => {
-                if (selectedCategory) return r.category === selectedCategory && r.type === viewType;
-                return true; 
-            });
-
-            filteredRecords.forEach(r => {
-                const catObj = categories.find(c => c.name === r.category && c.type === r.type) || { color: '#64748b' };
-                const row = document.createElement('tr');
-                row.className = 'group hover:bg-slate-50 dark:hover:bg-slate-900 transition duration-300';
-                row.innerHTML = `<td class="p-8">
-                    <div class="text-[0.95rem] font-black text-slate-400 dark:text-slate-400 mb-2 tracking-widest">${r.date.substring(5).replace('-','/')}</div>
-                    <div class="text-[1.1rem] font-black uppercase" style="color: ${catObj.color}">${escapeHTML(r.category)}</div>
-                </td><td class="p-4 font-black text-main text-[1.2rem]">${escapeHTML(r.desc)}</td>
-                <td class="p-8 text-right"><div class="font-mono font-black text-[1.4rem] tabular-nums ${r.type === 'income' ? 'text-green-500' : 'text-main'}">${r.type === 'income' ? '+' : ''}¥${r.amount.toLocaleString()}</div>
-                <button onclick="requestDelete(${r.id})" class="text-[1rem] text-red-500 font-black opacity-0 group-hover:opacity-100 transition-opacity w-full text-right mt-4 underline">けす</button></td>`;
+            const filRecs = mRecs.filter(r => selectedCategory ? (r.category === selectedCategory && r.type === viewType) : true);
+            filRecs.forEach(r => {
+                const cObj = categories.find(c => c.name === r.category && c.type === r.type) || { color: '#64748b' };
+                const row = document.createElement('tr'); row.className = 'group hover:bg-slate-50 dark:hover:bg-slate-900 transition';
+                row.innerHTML = `<td class="p-6 sm:p-8">
+                    <div class="text-[0.8rem] font-black text-slate-400 mb-1 tracking-widest">${r.date.substring(5).replace('-','/')}</div>
+                    <div class="text-[0.95rem] font-black uppercase" style="color: ${cObj.color}">${escapeHTML(r.category)}</div>
+                </td><td class="p-4 font-black text-main text-[1rem] sm:text-[1.1rem]">${escapeHTML(r.desc)}</td>
+                <td class="p-6 sm:p-8 text-right"><div class="font-mono font-black text-[1.2rem] sm:text-[1.3rem] tabular-nums ${r.type === 'income' ? 'text-green-500' : 'text-main'}">${r.type === 'income' ? '+' : ''}¥${r.amount.toLocaleString()}</div>
+                <button onclick="requestDelete(${r.id})" class="text-[0.85rem] text-red-500 font-black underline opacity-0 group-hover:opacity-100 transition mt-2">けす</button></td>`;
                 list.appendChild(row);
             });
 
-            categories.filter(c => c.type === viewType).forEach((cat) => {
-                const isActive = selectedCategory === cat.name;
-                const card = document.createElement('div');
-                card.onclick = () => toggleFilter(cat.name);
-                card.className = `cursor-pointer transition-all duration-400 bg-white dark:bg-slate-900 p-8 rounded-[3.5rem] border-l-[10px] border-2 border-transparent shadow-sm active:scale-95 ${isActive ? 'ring-8 ring-primary/10 -translate-y-4 shadow-2xl border-slate-100 dark:border-slate-800' : 'opacity-100 hover:shadow-2xl'}`;
-                card.style.borderLeftColor = cat.color;
-                card.innerHTML = `<div class="text-[1rem] font-black text-slate-400 dark:text-slate-400 uppercase truncate mb-3">${escapeHTML(cat.name)}</div>
-                <div class="text-[1.4rem] font-black tabular-nums text-main">¥${summaryData[cat.name].toLocaleString()}</div>`;
-                summaryGrid.appendChild(card);
-            });
+            categories.filter(c => c.type === viewType).forEach((c) => {
+                const isA = selectedCategory === c.name; const card = document.createElement('div');
+                card.onclick = () => toggleFilter(c.name);
+                
+                let paddingClass = 'p-4 ss:p-6 sm:p-8';
+                let labelSize = 'text-[0.85rem]';
+                let amountSize = 'text-[1.3rem]';
 
-            document.getElementById('history-count').innerText = `${filteredRecords.length}件`;
-            document.getElementById('empty-state').classList.toggle('hidden', filteredRecords.length > 0);
-            
-            // Render Weekly Summary
-            renderWeeklySummary(monthlyRecords);
-
-            // Handle Chart Visibility and Data
-            if (filteredRecords.length > 0) {
-                document.getElementById('chart-section').classList.remove('hidden');
-                updateChart(summaryData, parseFloat(document.documentElement.style.fontSize) * 1.0);
-            } else {
-                document.getElementById('chart-section').classList.add('hidden');
-            }
-        }
-
-        function renderWeeklySummary(records) {
-            const container = document.getElementById('weekly-bars-container');
-            const weeklySection = document.getElementById('weekly-section');
-            container.innerHTML = '';
-            
-            if (records.length === 0) {
-                weeklySection.classList.add('hidden');
-                return;
-            }
-            weeklySection.classList.remove('hidden');
-
-            const filteredRecords = records.filter(r => r.type === viewType);
-            if (filteredRecords.length === 0) {
-                weeklySection.classList.add('hidden');
-                return;
-            }
-
-            // Group by 7-day intervals
-            const weeklySums = [0, 0, 0, 0, 0]; // Max 5 weeks in a month
-            filteredRecords.forEach(r => {
-                const day = parseInt(r.date.split('-')[2]);
-                const weekIdx = Math.floor((day - 1) / 7);
-                if (weekIdx < 5) weeklySums[weekIdx] += r.amount;
-            });
-
-            const maxVal = Math.max(...weeklySums) || 1;
-            const weekLabels = ["1日〜7日", "8日〜14日", "15日〜21日", "22日〜28日", "29日〜末日"];
-
-            weeklySums.forEach((sum, idx) => {
-                if (sum === 0 && idx >= 4) return; // Hide empty 5th week
-
-                const percentage = (sum / maxVal) * 100;
-                const barHtml = `
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-end px-1">
-                            <span class="text-[0.85rem] font-black text-slate-400 uppercase tracking-tighter">${weekLabels[idx]}</span>
-                            <span class="text-[1.1rem] font-black tabular-nums text-main">¥${sum.toLocaleString()}</span>
-                        </div>
-                        <div class="h-6 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-primary transition-all duration-1000 ease-out rounded-full shadow-lg" style="width: ${percentage}%"></div>
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', barHtml);
-            });
-        }
-
-        function updateChart(summaryData, fontSize) {
-            const ctx = document.getElementById('expense-chart').getContext('2d');
-            const isDark = document.documentElement.classList.contains('dark');
-            if (chartInstance) chartInstance.destroy();
-
-            // Filter out categories with 0 values to fix the "buggy" display
-            const activeCats = categories.filter(c => c.type === viewType && summaryData[c.name] > 0);
-            
-            if (activeCats.length === 0) return;
-
-            const chartLabels = activeCats.map(c => c.name);
-            const chartData = activeCats.map(c => summaryData[c.name]);
-            const chartColors = activeCats.map(c => c.color);
-
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: { 
-                    labels: chartLabels, 
-                    datasets: [{ 
-                        data: chartData, 
-                        backgroundColor: chartColors, 
-                        borderWidth: 10, 
-                        borderColor: isDark ? '#020617' : '#fff', 
-                        hoverOffset: 30 
-                    }] 
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false,
-                    cutout: '50%', 
-                    animation: { 
-                        animateRotate: true, 
-                        animateScale: true, 
-                        duration: 1200,
-                        easing: 'easeOutQuart'
-                    },
-                    plugins: { 
-                        legend: { 
-                            display: true, 
-                            position: 'bottom', 
-                            labels: { 
-                                color: isDark ? '#fff' : '#333', 
-                                font: { size: fontSize, weight: '900' }, 
-                                usePointStyle: true, 
-                                padding: 35 
-                            } 
-                        } 
-                    } 
+                if (appConfig.summaryLayout === 'list') {
+                    paddingClass = 'p-4 sm:p-5 flex justify-between items-center';
+                    labelSize = 'text-[0.95rem] ss:text-[1rem]';
+                    amountSize = 'text-[1.1rem] ss:text-[1.3rem]';
+                } else if (appConfig.summaryLayout === 'grid3') {
+                    paddingClass = 'p-2 ss:p-4 sm:p-6';
+                    labelSize = 'text-[0.65rem] ss:text-[0.85rem]';
+                    amountSize = 'text-[0.85rem] ss:text-[1.3rem]';
                 }
+
+                card.className = `cursor-pointer transition-all bg-white dark:bg-slate-900 ${paddingClass} rounded-[1rem] ss:rounded-[2.5rem] border-l-[4px] ss:border-l-[8px] border-2 border-transparent shadow-sm ${isA ? 'ring-4 ring-primary/10 -translate-y-1 border-slate-100 dark:border-slate-800 shadow-xl' : 'hover:shadow-md'}`;
+                card.style.borderLeftColor = c.color;
+
+                if (appConfig.summaryLayout === 'list') {
+                    card.innerHTML = `<div class="${labelSize} font-black text-main uppercase truncate">${escapeHTML(c.name)}</div><div class="${amountSize} font-black tabular-nums text-main">¥${sumData[c.name].toLocaleString()}</div>`;
+                } else {
+                    card.innerHTML = `<div class="${labelSize} font-black text-main uppercase truncate mb-1 ss:mb-2 opacity-70">${escapeHTML(c.name)}</div><div class="${amountSize} font-black tabular-nums text-main">¥${sumData[c.name].toLocaleString()}</div>`;
+                }
+                grid.appendChild(card);
+            });
+
+            document.getElementById('history-count').innerText = `${filRecs.length}件`;
+            document.getElementById('empty-state').classList.toggle('hidden', filRecs.length > 0);
+            renderWeeklySummary(mRecs);
+            if (filRecs.length > 0) { document.getElementById('chart-section').classList.remove('hidden'); updateChart(sumData, parseFloat(document.documentElement.style.fontSize)); }
+            else document.getElementById('chart-section').classList.add('hidden');
+        }
+
+        function renderWeeklySummary(recs) {
+            const container = document.getElementById('weekly-bars-container'); const sec = document.getElementById('weekly-section');
+            container.innerHTML = ''; const fRecs = recs.filter(r => r.type === viewType);
+            if (fRecs.length === 0) { sec.classList.add('hidden'); return; }
+            sec.classList.remove('hidden');
+            const sums = [0,0,0,0,0];
+            fRecs.forEach(r => { const d = parseInt(r.date.split('-')[2]); const w = Math.floor((d-1)/7); if (w < 5) sums[w] += r.amount; });
+            const max = Math.max(...sums) || 1; const labels = ["1〜7日", "8〜14日", "15〜21日", "22〜28日", "29日〜"];
+            sums.forEach((s, i) => { if (s === 0 && i >= 4) return;
+                container.insertAdjacentHTML('beforeend', `<div class="space-y-2"><div class="flex justify-between px-1"><span class="text-[0.8rem] font-black text-slate-400 uppercase">${labels[i]}</span><span class="text-[1rem] font-black tabular-nums text-main">¥${s.toLocaleString()}</span></div>
+                <div class="h-5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-primary transition-all duration-1000 rounded-full" style="width: ${(s/max)*100}%"></div></div></div>`);
             });
         }
 
-        function exportData() {
-            if (records.length === 0) return;
-            const data = JSON.stringify({ records, categories, appConfig }, null, 2);
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = `maki_money_${new Date().toISOString().slice(0,10)}.json`; a.click();
-            showToast("保存しました！");
+        function updateChart(sData, fs) {
+            const ctx = document.getElementById('expense-chart').getContext('2d'); const isD = document.documentElement.classList.contains('dark');
+            if (chartInstance) chartInstance.destroy();
+            const aCats = categories.filter(c => c.type === viewType && sData[c.name] > 0);
+            if (aCats.length === 0) return;
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut', data: { labels: aCats.map(c => c.name), datasets: [{ data: aCats.map(c => sData[c.name]), backgroundColor: aCats.map(c => c.color), borderWidth: 6, borderColor: isD ? '#020617' : '#fff' }] },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { display: true, position: 'bottom', labels: { color: isD ? '#fff' : '#333', font: { size: fs*0.9, weight: '900' }, usePointStyle: true, padding: 25 } } } }
+            });
         }
 
-        function importData(event) {
-            const file = event.target.files[0]; if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (confirm(`今のデータを全部上書きして読み込むけど大丈夫？`)) {
-                        records = imported.records || records; categories = imported.categories || categories; appConfig = imported.appConfig || appConfig;
-                        saveData(); applyConfig(); updateCategoryUI(); render(); showToast("読み込みました！");
-                    }
-                } catch (err) { showToast("読み込めなかったよ！"); }
-            };
-            reader.readAsText(file); event.target.value = '';
+        function exportData() { if (records.length === 0) return; const d = JSON.stringify({ records, categories, appConfig }, null, 2); const b = new Blob([d], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `maki_money_${new Date().toISOString().slice(0,10)}.json`; a.click(); showToast("保存しました！"); }
+        function importData(e) {
+            const f = e.target.files[0]; if (!f) return; const r = new FileReader();
+            r.onload = (ev) => { try { const i = JSON.parse(ev.target.result); if (confirm(`データを上書きしていい？`)) { records = i.records || records; categories = i.categories || categories; appConfig = i.appConfig || appConfig; saveData(); applyConfig(); updateCategoryUI(); render(); showToast("読み込みました！"); } } catch (err) { showToast("ダメだった！"); } };
+            r.readAsText(f); e.target.value = '';
         }
         window.onload = init;
     </script>
 </body>
 </html>
 
+```
