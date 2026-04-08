@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ja" class="light" id="app-root">
 <head>
@@ -55,9 +56,8 @@
         .text-main { @apply text-slate-950 dark:text-white; }
         .text-sub { @apply text-slate-800 dark:text-slate-100; }
         
-        /* Base font size increased per user request */
         input, select, button, label, p, span, td, div {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
         }
 
         .bg-primary { background-color: var(--primary-color); }
@@ -68,7 +68,6 @@
         .btn-toggle-active { background-color: var(--primary-color); color: white; transform: scale(1.05); z-index: 10; font-weight: 900; }
         .btn-toggle-inactive { @apply text-slate-400 dark:text-slate-500 bg-transparent font-bold; }
 
-        /* Amount placeholder sizing kept at 1rem per request */
         #input-amount::placeholder {
             font-size: 1rem;
             font-weight: 900;
@@ -98,24 +97,24 @@
             </div>
         </div>
 
-        <!-- Summary Cards -->
+        <!-- Monthly Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                <label class="block text-[1rem] font-black text-slate-400 uppercase mb-2">どの月を見る？</label>
-                <input type="month" id="view-month" onchange="render()" class="w-full bg-transparent font-black text-[1.4rem] outline-none text-primary cursor-pointer">
+                <label class="block text-[0.9rem] font-black text-slate-400 uppercase mb-2">どの月を見る？</label>
+                <input type="month" id="view-month" onchange="render()" class="w-full bg-transparent font-black text-[1.3rem] outline-none text-primary cursor-pointer">
             </div>
             <div id="summary-container" class="md:col-span-2 grid grid-cols-3 gap-3">
                 <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[1rem] font-black text-green-500 uppercase mb-1">もらった</label>
-                    <div id="total-income" class="text-[1.7rem] font-black tabular-nums text-main">¥0</div>
+                    <label class="block text-[0.9rem] font-black text-green-500 uppercase mb-1">もらった</label>
+                    <div id="total-income" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
                 <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[1rem] font-black text-red-500 uppercase mb-1">つかった</label>
-                    <div id="total-expense" class="text-[1.7rem] font-black tabular-nums text-main">¥0</div>
+                    <label class="block text-[0.9rem] font-black text-red-500 uppercase mb-1">つかった</label>
+                    <div id="total-expense" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
                 <div id="balance-card" class="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
-                    <label class="block text-[1rem] font-black text-primary uppercase mb-1">のこり</label>
-                    <div id="total-balance" class="text-[1.7rem] font-black tabular-nums text-main">¥0</div>
+                    <label class="block text-[0.9rem] font-black text-primary uppercase mb-1">のこり</label>
+                    <div id="total-balance" class="text-[1.5rem] font-black tabular-nums text-main">¥0</div>
                 </div>
             </div>
         </div>
@@ -124,38 +123,38 @@
         <div class="bg-white dark:bg-slate-900 p-7 rounded-[2.5rem] shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-8 relative">
             <div class="flex items-center justify-between mb-8">
                 <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" class="fill-current text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" class="fill-current text-primary">
                         <path d="M480-520q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM200-400q-33 0-56.5-23.5T120-480v-320q0-33 23.5-56.5T200-880h560q33 0 56.5 23.5T840-800v320q0 33-23.5 56.5T760-400H200Zm80-80h400q0-33 23.5-56.5T760-560v-160q-33 0-56.5-23.5T680-800H280q0 33-23.5 56.5T200-720v160q33 0 56.5 23.5T280-480Zm-80 0v-320 320ZM480-80l160-160-56-56-64 64v-128h-80v128l-64-64-56 56L480-80Z"/>
                     </svg>
-                    <h2 class="text-[1.5rem] font-black uppercase tracking-widest text-main">新しくメモする</h2>
+                    <h2 class="text-[1.4rem] font-black uppercase tracking-widest text-main">新しくメモする</h2>
                 </div>
                 
                 <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl w-48 relative overflow-hidden">
-                    <button onclick="setInputType('expense')" id="type-expense-btn" class="flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-active">つかった</button>
-                    <button onclick="setInputType('income')" id="type-income-btn" class="flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-inactive">もらった</button>
+                    <button onclick="setInputType('expense')" id="type-expense-btn" class="flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active">つかった</button>
+                    <button onclick="setInputType('income')" id="type-income-btn" class="flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive">もらった</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-[1.2rem] font-black mb-3 text-sub">いつ？</label>
-                        <input type="date" id="input-date" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:bg-white dark:focus:bg-slate-950 outline-none focus-border-primary transition font-black text-[1.3rem]">
+                        <label class="block text-[1.1rem] font-black mb-3 text-sub">いつ？</label>
+                        <input type="date" id="input-date" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:bg-white dark:focus:bg-slate-950 outline-none focus-border-primary transition font-black text-[1.2rem]">
                     </div>
                     <div>
-                        <label class="block text-[1.2rem] font-black mb-3 text-sub">どれ？</label>
-                        <select id="input-category" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.3rem]"></select>
+                        <label class="block text-[1.1rem] font-black mb-3 text-sub">どれ？</label>
+                        <select id="input-category" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.2rem]"></select>
                     </div>
                 </div>
                 <div class="space-y-6">
                     <div>
-                        <label id="input-desc-label" class="block text-[1.2rem] font-black mb-3 text-sub">なに？</label>
-                        <input type="text" id="input-desc" placeholder="何を買ったの？" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.3rem]">
+                        <label id="input-desc-label" class="block text-[1.1rem] font-black mb-3 text-sub">なに？</label>
+                        <input type="text" id="input-desc" placeholder="何を買ったの？" class="w-full p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none focus-border-primary transition font-black text-main text-[1.2rem]">
                     </div>
                     <div>
-                        <label class="block text-[1.2rem] font-black mb-3 text-sub">いくら？</label>
+                        <label class="block text-[1.1rem] font-black mb-3 text-sub">いくら？</label>
                         <div class="relative flex items-center">
-                            <input type="number" id="input-amount" placeholder="金額を書いてね" class="w-full p-5 pr-20 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none font-black text-[2rem] tabular-nums focus-border-primary transition text-main">
+                            <input type="number" id="input-amount" placeholder="金額を書いてね" class="w-full p-5 pr-20 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent outline-none font-black text-[1.8rem] tabular-nums focus-border-primary transition text-main">
                             <button onclick="toggleTenkeyTray()" class="absolute right-3 p-3 bg-slate-200 dark:bg-slate-700 rounded-2xl hover:bg-slate-300 dark:hover:bg-slate-600 transition active:scale-90 text-slate-800 dark:text-slate-100 shadow-sm border border-slate-300 dark:border-slate-600">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 7V4a2 2 0 012-2h4a2 2 0 012 2v3m-2 6h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4a2 2 0 012-2zM2 11h4a2 2 0 012 2v4a2 2 0 01-2 2H2a2 2 0 01-2-2v-4a2 2 0 012-2zM14 2h4a2 2 0 012 2v4a2 2 0 01-2 2h-4a2 2 0 01-2-2V4a2 2 0 012-2z"></path></svg>
                             </button>
@@ -163,59 +162,62 @@
                     </div>
                 </div>
             </div>
-            <button onclick="addRecord()" class="mt-10 w-full bg-primary hover:opacity-90 text-white font-black py-6 rounded-[2.5rem] transition transform active:scale-[0.97] shadow-2xl shadow-blue-500/30 text-[1.6rem] flex items-center justify-center gap-4">
-                <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+            <button onclick="addRecord()" class="mt-10 w-full bg-primary hover:opacity-90 text-white font-black py-6 rounded-[2.5rem] transition transform active:scale-[0.97] shadow-2xl shadow-blue-500/30 text-[1.5rem] flex items-center justify-center gap-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
                 記録するよ！
             </button>
         </div>
 
-        <!-- List Section -->
+        <!-- Filtering Grid -->
         <div class="flex justify-between items-center mb-6 px-2">
-            <label id="history-header-label" class="text-[1.2rem] font-black uppercase tracking-widest text-main">種類ごとに分ける（つかった）</label>
+            <label id="history-header-label" class="text-[1.1rem] font-black uppercase tracking-widest text-main">種類ごとに分ける（つかった）</label>
             <div class="flex bg-slate-200 dark:bg-slate-800 p-1.5 rounded-2xl gap-2">
-                 <button onclick="setViewType('expense')" id="view-expense-btn" class="px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary">つかった</button>
-                 <button onclick="setViewType('income')" id="view-income-btn" class="px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all text-slate-400">もらった</button>
+                 <button onclick="setViewType('expense')" id="view-expense-btn" class="px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary">つかった</button>
+                 <button onclick="setViewType('income')" id="view-income-btn" class="px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400">もらった</button>
             </div>
         </div>
         <div id="summary-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-5 mb-12"></div>
 
-        <div class="bg-white dark:bg-slate-900 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden mb-12">
-            <div class="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50 text-main font-black uppercase tracking-widest text-[1.1rem]">
+        <!-- History Table Section -->
+        <div class="bg-white dark:bg-slate-900 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden mb-8">
+            <div class="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50 text-main font-black uppercase tracking-widest text-[1rem]">
                 <h3 id="history-title">最近のまとめ</h3>
-                <span id="history-count" class="bg-blue-100 dark:bg-blue-900 text-primary px-6 py-1.5 rounded-full text-[1.1rem]">0件</span>
+                <span id="history-count" class="bg-blue-100 dark:bg-blue-900 text-primary px-6 py-1.5 rounded-full text-[1rem]">0件</span>
             </div>
             <div id="history-container" class="max-h-[600px] overflow-y-auto no-scrollbar">
                 <table class="w-full text-left border-collapse">
                     <tbody id="record-list" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
                 </table>
             </div>
-            <div id="empty-state" class="hidden p-24 text-center font-black text-slate-400 text-[1.3rem]">まだなにもないよ(´；ω；｀)ﾌﾞﾜｯ</div>
+            <div id="empty-state" class="hidden p-24 text-center font-black text-slate-400 text-[1.2rem] leading-relaxed">
+                まだなにもないよ(´;ω;`)ﾌﾞﾜｯ
+            </div>
         </div>
 
-        <!-- Chart -->
-        <div class="bg-white dark:bg-slate-900 p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-12 text-center">
-            <h3 id="chart-title" class="font-black mb-12 text-main text-[1.2rem] uppercase tracking-widest">おサイフのバランス</h3>
+        <!-- Reward Chart Visualization (Now below history) -->
+        <div id="chart-section" class="bg-white dark:bg-slate-900 p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-12 text-center">
+            <h3 id="chart-title" class="font-black mb-12 text-main text-[1.1rem] uppercase tracking-widest">おサイフのバランス</h3>
             <div class="relative max-w-[340px] mx-auto aspect-square">
                 <canvas id="expense-chart"></canvas>
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Data Management Actions -->
         <div class="flex flex-col items-center gap-8 py-12 border-t border-slate-200 dark:border-slate-800">
-            <p class="text-[1.1rem] font-black uppercase tracking-[0.4em] text-slate-400">データの管理</p>
+            <p class="text-[1rem] font-black uppercase tracking-[0.4em] text-slate-400">データの管理</p>
             <div class="flex gap-6 mb-12">
                 <button onclick="exportData()" class="flex items-center gap-4 px-10 py-5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.8rem] font-black transition active:scale-95 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-700">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                    データ保存
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    保存
                 </button>
                 <label class="flex items-center gap-4 px-10 py-5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-[1.8rem] font-black transition active:scale-95 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                    データ読込
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    読込
                     <input type="file" id="import-input" accept="application/json" class="hidden" onchange="importData(event)">
                 </label>
             </div>
             <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-700">
-                <p class="text-[1.2rem] font-black tracking-widest text-main">Copyright &copy; 2026 MASAKI. All rights reserved.</p>
+                <p class="text-[1.1rem] font-black tracking-widest text-main">Copyright &copy; 2026 MASAKI. All rights reserved.</p>
             </div>
         </div>
     </div>
@@ -226,33 +228,33 @@
     <div id="settings-modal" class="fixed inset-0 z-[1100] hidden flex items-center justify-center p-6 bg-slate-950/70 backdrop-blur-md">
         <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-slideUp flex flex-col max-h-[90vh] border border-slate-200 dark:border-slate-800 overflow-hidden">
             <div class="flex justify-between items-center mb-10 shrink-0">
-                <h3 class="text-[2.2rem] font-black text-main tracking-tight">設定しよう</h3>
+                <h3 class="text-[2rem] font-black text-main tracking-tight">設定しよう</h3>
                 <button onclick="toggleSettingsModal()" class="p-4 text-main hover:bg-slate-100 dark:hover:bg-slate-800 rounded-3xl transition"><svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             <div class="flex-1 overflow-y-auto no-scrollbar space-y-12 pr-1">
                 <section>
-                    <label class="block text-[1.2rem] font-black uppercase tracking-widest text-slate-500 mb-6">メインカラー</label>
+                    <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500 mb-6">メインカラー</label>
                     <div class="flex flex-wrap gap-5" id="theme-color-palette"></div>
                 </section>
                 <section>
-                    <label class="block text-[1.2rem] font-black uppercase tracking-widest text-slate-500 mb-6">表示スタイル</label>
+                    <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500 mb-6">表示スタイル</label>
                     <div class="flex gap-5">
-                        <button id="layout-list-btn" onclick="updateLayout('list')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.3rem]">リスト</button>
-                        <button id="layout-card-btn" onclick="updateLayout('card')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.3rem]">カード</button>
+                        <button id="layout-list-btn" onclick="updateLayout('list')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.2rem]">リスト</button>
+                        <button id="layout-card-btn" onclick="updateLayout('card')" class="flex-1 py-5 rounded-[1.5rem] border-2 font-black transition text-[1.2rem]">カード</button>
                     </div>
                 </section>
                 <section>
                     <div class="flex justify-between items-center mb-6">
-                        <label class="block text-[1.2rem] font-black uppercase tracking-widest text-slate-500">カテゴリーの管理</label>
+                        <label class="block text-[1.1rem] font-black uppercase tracking-widest text-slate-500">カテゴリーの管理</label>
                         <div class="flex bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl">
-                            <button onclick="setCategoryManageType('expense')" id="cat-manage-expense" class="px-6 py-2 rounded-xl text-[1.1rem] font-black transition bg-white dark:bg-slate-700 shadow-sm">つかった</button>
-                            <button onclick="setCategoryManageType('income')" id="cat-manage-income" class="px-6 py-2 rounded-xl text-[1.1rem] font-black transition text-slate-400">もらった</button>
+                            <button onclick="setCategoryManageType('expense')" id="cat-manage-expense" class="px-6 py-2 rounded-xl text-[1rem] font-black transition bg-white dark:bg-slate-700 shadow-sm">つかった</button>
+                            <button onclick="setCategoryManageType('income')" id="cat-manage-income" class="px-6 py-2 rounded-xl text-[1rem] font-black transition text-slate-400">もらった</button>
                         </div>
                     </div>
                     <div class="space-y-6 mb-10">
                         <div class="flex gap-4">
-                            <input type="text" id="new-category-name" placeholder="新しいカテゴリ名" class="flex-1 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent font-black outline-none text-main focus-border-primary text-[1.3rem]">
-                            <button onclick="addCategory()" class="bg-primary text-white px-8 rounded-2xl font-black shadow-md active:scale-95 transition text-[1.2rem]">追加</button>
+                            <input type="text" id="new-category-name" placeholder="新しいカテゴリ名" class="flex-1 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent font-black outline-none text-main focus-border-primary text-[1.2rem]">
+                            <button onclick="addCategory()" class="bg-primary text-white px-8 rounded-2xl font-black shadow-md active:scale-95 transition text-[1.1rem]">追加</button>
                         </div>
                         <div class="flex flex-wrap gap-4 justify-center" id="new-category-palette"></div>
                     </div>
@@ -264,39 +266,39 @@
 
     <div id="confirm-modal" class="fixed inset-0 z-[1200] hidden flex items-center justify-center p-6 bg-slate-950/70 backdrop-blur-md">
         <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[3.5rem] p-14 shadow-2xl border border-slate-200 dark:border-slate-800 text-center">
-            <h3 id="confirm-title" class="text-[2rem] font-black mb-6 text-main">かくにん</h3>
-            <p id="confirm-body" class="text-slate-800 dark:text-slate-200 mb-14 text-[1.5rem] leading-relaxed">本当に実行してもいい？</p>
+            <h3 id="confirm-title" class="text-[1.8rem] font-black mb-6 text-main">かくにん</h3>
+            <p id="confirm-body" class="text-slate-800 dark:text-slate-200 mb-14 text-[1.4rem] leading-relaxed">本当に実行してもいい？</p>
             <div class="flex flex-col gap-6">
-                <button id="confirm-action-btn" class="w-full py-6 rounded-[2rem] bg-red-600 text-white font-black text-[1.5rem] shadow-xl active:scale-95 transition">けすよ</button>
-                <button onclick="closeConfirm()" class="w-full py-6 rounded-[2rem] bg-slate-100 dark:bg-slate-800 text-main font-bold text-[1.4rem]">やっぱりやめる</button>
+                <button id="confirm-action-btn" class="w-full py-6 rounded-[2rem] bg-red-600 text-white font-black text-[1.4rem] shadow-xl active:scale-95 transition">けすよ</button>
+                <button onclick="closeConfirm()" class="w-full py-6 rounded-[2rem] bg-slate-100 dark:bg-slate-800 text-main font-bold text-[1.3rem]">やっぱりやめる</button>
             </div>
         </div>
     </div>
 
-    <!-- Tenkey Tray -->
+    <!-- Custom Tenkey Tray -->
     <div id="tenkey-overlay" onclick="toggleTenkeyTray()" class="fixed inset-0 bg-slate-950/30 backdrop-blur-[6px] z-[1400] hidden"></div>
     <div id="tenkey-tray" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t-2 border-slate-200 dark:border-slate-700 rounded-t-[4rem] z-[1500] hidden transform transition-transform animate-trayUp p-12 safe-pb shadow-2xl">
         <div class="max-w-md mx-auto">
             <div class="flex justify-between items-center mb-10 px-5">
-                <span class="text-[1.2rem] font-black uppercase tracking-[0.3em] text-slate-400">金額を入力</span>
-                <span id="tenkey-current-val" class="font-mono font-black text-primary text-[1.5rem]">0</span>
+                <span class="text-[1.1rem] font-black uppercase tracking-[0.3em] text-slate-400">金額を入力</span>
+                <span id="tenkey-current-val" class="font-mono font-black text-primary text-[1.4rem]">0</span>
             </div>
-            <div id="tenkey-display" class="w-full p-10 mb-12 text-right text-[4.5rem] font-black tabular-nums border-b-8 border-primary text-main bg-slate-50 dark:bg-slate-800/50 rounded-[3rem]">0</div>
+            <div id="tenkey-display" class="w-full p-10 mb-12 text-right text-[4.2rem] font-black tabular-nums border-b-8 border-primary text-main bg-slate-50 dark:bg-slate-800/50 rounded-[3rem]">0</div>
             <div class="grid grid-cols-3 gap-6">
-                <button onclick="pressTenkey('1')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">1</button>
-                <button onclick="pressTenkey('2')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">2</button>
-                <button onclick="pressTenkey('3')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">3</button>
-                <button onclick="pressTenkey('4')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">4</button>
-                <button onclick="pressTenkey('5')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">5</button>
-                <button onclick="pressTenkey('6')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">6</button>
-                <button onclick="pressTenkey('7')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">7</button>
-                <button onclick="pressTenkey('8')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">8</button>
-                <button onclick="pressTenkey('9')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">9</button>
-                <button onclick="pressTenkey('B')" class="h-28 bg-slate-200 dark:bg-slate-700 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition flex items-center justify-center shadow-sm">
+                <button onclick="pressTenkey('1')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">1</button>
+                <button onclick="pressTenkey('2')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">2</button>
+                <button onclick="pressTenkey('3')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">3</button>
+                <button onclick="pressTenkey('4')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">4</button>
+                <button onclick="pressTenkey('5')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">5</button>
+                <button onclick="pressTenkey('6')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">6</button>
+                <button onclick="pressTenkey('7')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">7</button>
+                <button onclick="pressTenkey('8')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">8</button>
+                <button onclick="pressTenkey('9')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">9</button>
+                <button onclick="pressTenkey('B')" class="h-28 bg-slate-200 dark:bg-slate-700 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition flex items-center justify-center shadow-sm">
                     <svg class="w-16 h-16" fill="none" stroke="currentColor" stroke-width="4" viewBox="0 0 24 24"><path d="M12 19l-7-7 7-7m5 14l-7-7 7-7"></path></svg>
                 </button>
-                <button onclick="pressTenkey('0')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[3rem] font-black active:bg-primary active:text-white transition shadow-sm">0</button>
-                <button onclick="pressTenkey('D')" class="h-28 bg-primary text-white rounded-[2.5rem] text-[2.2rem] font-black active:scale-95 transition shadow-lg">完了</button>
+                <button onclick="pressTenkey('0')" class="h-28 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] text-[2.8rem] font-black active:bg-primary active:text-white transition shadow-sm">0</button>
+                <button onclick="pressTenkey('D')" class="h-28 bg-primary text-white rounded-[2.5rem] text-[2rem] font-black active:scale-95 transition shadow-lg">完了</button>
             </div>
         </div>
     </div>
@@ -362,13 +364,13 @@
             const descLabel = document.getElementById('input-desc-label');
             
             if (type === 'expense') {
-                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-active';
-                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-inactive';
+                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active';
+                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive';
                 descInput.placeholder = '何を買ったの？';
                 descLabel.innerText = 'なに？';
             } else {
-                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-active';
-                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.2rem] transition-all duration-300 z-10 btn-toggle-inactive';
+                incBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-active';
+                expBtn.className = 'flex-1 py-3 rounded-xl text-[1.1rem] transition-all duration-300 z-10 btn-toggle-inactive';
                 descInput.placeholder = 'どこから入った？';
                 descLabel.innerText = 'どこから？';
             }
@@ -381,18 +383,15 @@
             const expBtn = document.getElementById('view-expense-btn');
             const incBtn = document.getElementById('view-income-btn');
             const header = document.getElementById('history-header-label');
-            const chartTitle = document.getElementById('chart-title');
             
             if (type === 'expense') {
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all text-slate-400';
+                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
+                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400';
                 header.innerText = '種類ごとに分ける（つかった）';
-                chartTitle.innerText = 'おサイフのバランス';
             } else {
-                incBtn.className = 'px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
-                expBtn.className = 'px-6 py-2 rounded-xl text-[1.1rem] font-black transition-all text-slate-400';
+                incBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all bg-white dark:bg-slate-700 shadow-sm text-primary';
+                expBtn.className = 'px-6 py-2 rounded-xl text-[1rem] font-black transition-all text-slate-400';
                 header.innerText = '種類ごとに分ける（もらった）';
-                chartTitle.innerText = 'おサイフのバランス';
             }
             render();
         }
@@ -418,11 +417,11 @@
             const listBtn = document.getElementById('layout-list-btn');
             const cardBtn = document.getElementById('layout-card-btn');
             if (appConfig.layout === 'list') {
-                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.3rem]';
-                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.3rem]';
+                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.1rem]';
+                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.1rem]';
             } else {
-                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.3rem]';
-                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.3rem]';
+                cardBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition bg-primary text-white border-primary shadow-xl shadow-blue-500/20 text-[1.1rem]';
+                listBtn.className = 'flex-1 py-5 rounded-[1.5rem] border-2 font-black transition border-slate-200 dark:border-slate-800 text-slate-400 text-[1.1rem]';
             }
         }
 
@@ -503,10 +502,10 @@
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 px-12 py-6 rounded-[2.5rem] shadow-2xl text-center font-black mb-5 animate-slideUp pointer-events-auto border-2 border-primary/30 text-[1.3rem]';
+            toast.className = 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 px-12 py-6 rounded-[2.5rem] shadow-2xl text-center font-black mb-5 animate-slideUp pointer-events-auto border-2 border-primary/30 text-[1.1rem]';
             toast.innerText = message;
             container.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3500);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 200); }, 3500);
         }
 
         function toggleDarkMode() {
@@ -536,7 +535,7 @@
                 return `
                 <li class="p-8 bg-slate-50 dark:bg-slate-800/40 rounded-[2.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-sm">
                     <div class="flex gap-5 mb-6">
-                        <input type="text" value="${escapeHTML(c.name)}" onchange="renameCategory(${globalIdx}, this.value)" class="flex-1 bg-white dark:bg-slate-950 p-5 rounded-2xl border-2 border-transparent font-black outline-none focus-border-primary text-main shadow-inner text-[1.3rem]">
+                        <input type="text" value="${escapeHTML(c.name)}" onchange="renameCategory(${globalIdx}, this.value)" class="flex-1 bg-white dark:bg-slate-950 p-5 rounded-2xl border-2 border-transparent font-black outline-none focus-border-primary text-main shadow-inner text-[1.1rem]">
                         <button onclick="requestCategoryDelete(${globalIdx})" class="text-red-500 p-3 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-2xl transition">
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
@@ -586,7 +585,7 @@
             document.getElementById('confirm-action-btn').onclick = () => {
                 records = records.filter(r => !(r.category === cat.name && r.type === cat.type));
                 categories.splice(index, 1);
-                saveData(); updateCategoryUI(); renderCategoryEditList(); closeConfirm(); render(); showToast("削除したよ");
+                saveData(); updateCategoryUI(); renderCategoryEditList(); closeConfirm(); render(); showToast("削除しました");
             };
         }
 
@@ -617,7 +616,7 @@
             document.getElementById('confirm-body').innerText = "この履歴を消しても大丈夫？";
             document.getElementById('confirm-modal').classList.remove('hidden');
             document.getElementById('confirm-action-btn').onclick = () => {
-                records = records.filter(r => r.id !== id); saveData(); closeConfirm(); render(); showToast("履歴を消したよ");
+                records = records.filter(r => r.id !== id); saveData(); closeConfirm(); render(); showToast("履歴を消しました");
             };
         }
 
@@ -632,13 +631,13 @@
             list.innerHTML = ''; summaryGrid.innerHTML = '';
             
             let incTotal = 0; let expTotal = 0;
-            const summary = {};
-            categories.filter(c => c.type === viewType).forEach(cat => summary[cat.name] = 0);
+            const summaryData = {};
+            categories.filter(c => c.type === viewType).forEach(cat => summaryData[cat.name] = 0);
 
             monthlyRecords.forEach(r => {
                 if (r.type === 'income') incTotal += r.amount;
                 else expTotal += r.amount;
-                if (r.type === viewType && summary.hasOwnProperty(r.category)) summary[r.category] += r.amount;
+                if (r.type === viewType && summaryData.hasOwnProperty(r.category)) summaryData[r.category] += r.amount;
             });
 
             document.getElementById('total-income').innerText = `¥${incTotal.toLocaleString()}`;
@@ -646,7 +645,7 @@
             const bal = incTotal - expTotal;
             const balEl = document.getElementById('total-balance');
             balEl.innerText = `¥${bal.toLocaleString()}`;
-            balEl.className = bal >= 0 ? 'text-[1.7rem] font-black tabular-nums text-primary' : 'text-[1.7rem] font-black tabular-nums text-red-500';
+            balEl.className = bal >= 0 ? 'text-[1.5rem] font-black tabular-nums text-primary' : 'text-[1.5rem] font-black tabular-nums text-red-500';
 
             const filteredRecords = monthlyRecords.filter(r => {
                 if (selectedCategory) return r.category === selectedCategory && r.type === viewType;
@@ -658,11 +657,11 @@
                 const row = document.createElement('tr');
                 row.className = 'group hover:bg-slate-50 dark:hover:bg-slate-900 transition duration-300';
                 row.innerHTML = `<td class="p-8">
-                    <div class="text-[1.1rem] font-black text-slate-400 dark:text-slate-400 mb-2 tracking-widest">${r.date.substring(5).replace('-','/')}</div>
-                    <div class="text-[1.2rem] font-black uppercase" style="color: ${catObj.color}">${escapeHTML(r.category)}</div>
-                </td><td class="p-4 font-black text-main text-[1.3rem]">${escapeHTML(r.desc)}</td>
-                <td class="p-8 text-right"><div class="font-mono font-black text-[1.5rem] tabular-nums ${r.type === 'income' ? 'text-green-500' : 'text-main'}">${r.type === 'income' ? '+' : ''}¥${r.amount.toLocaleString()}</div>
-                <button onclick="requestDelete(${r.id})" class="text-[1.1rem] text-red-500 font-black opacity-0 group-hover:opacity-100 transition-opacity w-full text-right mt-4 underline">けす</button></td>`;
+                    <div class="text-[0.95rem] font-black text-slate-400 dark:text-slate-400 mb-2 tracking-widest">${r.date.substring(5).replace('-','/')}</div>
+                    <div class="text-[1.1rem] font-black uppercase" style="color: ${catObj.color}">${escapeHTML(r.category)}</div>
+                </td><td class="p-4 font-black text-main text-[1.2rem]">${escapeHTML(r.desc)}</td>
+                <td class="p-8 text-right"><div class="font-mono font-black text-[1.4rem] tabular-nums ${r.type === 'income' ? 'text-green-500' : 'text-main'}">${r.type === 'income' ? '+' : ''}¥${r.amount.toLocaleString()}</div>
+                <button onclick="requestDelete(${r.id})" class="text-[1rem] text-red-500 font-black opacity-0 group-hover:opacity-100 transition-opacity w-full text-right mt-4 underline">けす</button></td>`;
                 list.appendChild(row);
             });
 
@@ -672,37 +671,69 @@
                 card.onclick = () => toggleFilter(cat.name);
                 card.className = `cursor-pointer transition-all duration-400 bg-white dark:bg-slate-900 p-8 rounded-[3.5rem] border-l-[10px] border-2 border-transparent shadow-sm active:scale-95 ${isActive ? 'ring-8 ring-primary/10 -translate-y-4 shadow-2xl border-slate-100 dark:border-slate-800' : 'opacity-100 hover:shadow-2xl'}`;
                 card.style.borderLeftColor = cat.color;
-                card.innerHTML = `<div class="text-[1.1rem] font-black text-slate-400 dark:text-slate-400 uppercase truncate mb-3">${escapeHTML(cat.name)}</div>
-                <div class="text-[1.6rem] font-black tabular-nums text-main">¥${summary[cat.name].toLocaleString()}</div>`;
+                card.innerHTML = `<div class="text-[1rem] font-black text-slate-400 dark:text-slate-400 uppercase truncate mb-3">${escapeHTML(cat.name)}</div>
+                <div class="text-[1.4rem] font-black tabular-nums text-main">¥${summaryData[cat.name].toLocaleString()}</div>`;
                 summaryGrid.appendChild(card);
             });
 
             document.getElementById('history-count').innerText = `${filteredRecords.length}件`;
             document.getElementById('empty-state').classList.toggle('hidden', filteredRecords.length > 0);
-            updateChart(summary, parseFloat(document.documentElement.style.fontSize) * 1.0);
+            
+            // Handle Chart Visibility and Data
+            if (filteredRecords.length > 0) {
+                document.getElementById('chart-section').classList.remove('hidden');
+                updateChart(summaryData, parseFloat(document.documentElement.style.fontSize) * 1.0);
+            } else {
+                document.getElementById('chart-section').classList.add('hidden');
+            }
         }
 
-        function updateChart(data, fontSize) {
+        function updateChart(summaryData, fontSize) {
             const ctx = document.getElementById('expense-chart').getContext('2d');
             const isDark = document.documentElement.classList.contains('dark');
             if (chartInstance) chartInstance.destroy();
-            const typeCats = categories.filter(c => c.type === viewType);
-            const chartLabels = typeCats.map(c => c.name);
-            const chartData = typeCats.map(c => data[c.name] || 0);
-            const chartColors = typeCats.map(c => c.color);
-            if (chartData.every(v => v === 0)) return;
+
+            // Filter out categories with 0 values to fix the "buggy" display
+            const activeCats = categories.filter(c => c.type === viewType && summaryData[c.name] > 0);
+            
+            if (activeCats.length === 0) return;
+
+            const chartLabels = activeCats.map(c => c.name);
+            const chartData = activeCats.map(c => summaryData[c.name]);
+            const chartColors = activeCats.map(c => c.color);
+
             chartInstance = new Chart(ctx, {
                 type: 'doughnut',
-                data: { labels: chartLabels, datasets: [{ data: chartData, backgroundColor: chartColors, borderWidth: 10, borderColor: isDark ? '#020617' : '#fff', hoverOffset: 25 }] },
+                data: { 
+                    labels: chartLabels, 
+                    datasets: [{ 
+                        data: chartData, 
+                        backgroundColor: chartColors, 
+                        borderWidth: 10, 
+                        borderColor: isDark ? '#020617' : '#fff', 
+                        hoverOffset: 30 
+                    }] 
+                },
                 options: { 
                     responsive: true, 
-                    cutout: '75%', 
-                    animation: { animateRotate: true, animateScale: true, duration: 1200 },
+                    maintainAspectRatio: false,
+                    cutout: '50%', 
+                    animation: { 
+                        animateRotate: true, 
+                        animateScale: true, 
+                        duration: 1200,
+                        easing: 'easeOutQuart'
+                    },
                     plugins: { 
                         legend: { 
                             display: true, 
                             position: 'bottom', 
-                            labels: { color: isDark ? '#fff' : '#333', font: { size: fontSize, weight: '900' }, usePointStyle: true, padding: 35 } 
+                            labels: { 
+                                color: isDark ? '#fff' : '#333', 
+                                font: { size: fontSize, weight: '900' }, 
+                                usePointStyle: true, 
+                                padding: 35 
+                            } 
                         } 
                     } 
                 }
@@ -714,8 +745,8 @@
             const data = JSON.stringify({ records, categories, appConfig }, null, 2);
             const blob = new Blob([data], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = `maki_money_final_${new Date().toISOString().slice(0,10)}.json`; a.click();
-            showToast("ファイルに保存したよ！");
+            const a = document.createElement('a'); a.href = url; a.download = `maki_money_${new Date().toISOString().slice(0,10)}.json`; a.click();
+            showToast("保存しました！");
         }
 
         function importData(event) {
@@ -726,7 +757,7 @@
                     const imported = JSON.parse(e.target.result);
                     if (confirm(`今のデータを全部上書きして読み込むけど大丈夫？`)) {
                         records = imported.records || records; categories = imported.categories || categories; appConfig = imported.appConfig || appConfig;
-                        saveData(); applyConfig(); updateCategoryUI(); render(); showToast("データを読み込んだよ！");
+                        saveData(); applyConfig(); updateCategoryUI(); render(); showToast("読み込みました！");
                     }
                 } catch (err) { showToast("読み込めなかったよ！"); }
             };
@@ -736,3 +767,5 @@
     </script>
 </body>
 </html>
+
+```
