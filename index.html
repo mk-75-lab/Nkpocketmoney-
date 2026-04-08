@@ -193,7 +193,15 @@
             </div>
         </div>
 
-        <!-- Reward Chart Visualization (Now below history) -->
+        <!-- Weekly Summary Visualization (New Section) -->
+        <div id="weekly-section" class="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-8 overflow-hidden">
+            <h3 class="font-black mb-8 text-main text-[1.1rem] uppercase tracking-widest">しゅうかんのまとめ</h3>
+            <div id="weekly-bars-container" class="space-y-6">
+                <!-- Weekly bars will be injected here -->
+            </div>
+        </div>
+
+        <!-- Reward Chart Visualization -->
         <div id="chart-section" class="bg-white dark:bg-slate-900 p-12 rounded-[3rem] shadow-sm border border-slate-200 dark:border-slate-800 mb-12 text-center">
             <h3 id="chart-title" class="font-black mb-12 text-main text-[1.1rem] uppercase tracking-widest">おサイフのバランス</h3>
             <div class="relative max-w-[340px] mx-auto aspect-square">
@@ -678,6 +686,9 @@
             document.getElementById('history-count').innerText = `${filteredRecords.length}件`;
             document.getElementById('empty-state').classList.toggle('hidden', filteredRecords.length > 0);
             
+            // Render Weekly Summary
+            renderWeeklySummary(monthlyRecords);
+
             // Handle Chart Visibility and Data
             if (filteredRecords.length > 0) {
                 document.getElementById('chart-section').classList.remove('hidden');
@@ -685,6 +696,53 @@
             } else {
                 document.getElementById('chart-section').classList.add('hidden');
             }
+        }
+
+        function renderWeeklySummary(records) {
+            const container = document.getElementById('weekly-bars-container');
+            const weeklySection = document.getElementById('weekly-section');
+            container.innerHTML = '';
+            
+            if (records.length === 0) {
+                weeklySection.classList.add('hidden');
+                return;
+            }
+            weeklySection.classList.remove('hidden');
+
+            const filteredRecords = records.filter(r => r.type === viewType);
+            if (filteredRecords.length === 0) {
+                weeklySection.classList.add('hidden');
+                return;
+            }
+
+            // Group by 7-day intervals
+            const weeklySums = [0, 0, 0, 0, 0]; // Max 5 weeks in a month
+            filteredRecords.forEach(r => {
+                const day = parseInt(r.date.split('-')[2]);
+                const weekIdx = Math.floor((day - 1) / 7);
+                if (weekIdx < 5) weeklySums[weekIdx] += r.amount;
+            });
+
+            const maxVal = Math.max(...weeklySums) || 1;
+            const weekLabels = ["1日〜7日", "8日〜14日", "15日〜21日", "22日〜28日", "29日〜末日"];
+
+            weeklySums.forEach((sum, idx) => {
+                if (sum === 0 && idx >= 4) return; // Hide empty 5th week
+
+                const percentage = (sum / maxVal) * 100;
+                const barHtml = `
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-end px-1">
+                            <span class="text-[0.85rem] font-black text-slate-400 uppercase tracking-tighter">${weekLabels[idx]}</span>
+                            <span class="text-[1.1rem] font-black tabular-nums text-main">¥${sum.toLocaleString()}</span>
+                        </div>
+                        <div class="h-6 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary transition-all duration-1000 ease-out rounded-full shadow-lg" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', barHtml);
+            });
         }
 
         function updateChart(summaryData, fontSize) {
