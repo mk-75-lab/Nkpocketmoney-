@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>おこづかい帳</title>
-    <!-- ダークモードの点滅防止用スクリプト。描画前に実行されるようにここに配置 -->
     <script>
         (function() {
             const theme = localStorage.getItem('theme');
@@ -276,6 +275,7 @@
         const REC_KEY = 'pm_records_v11';
         const CAT_KEY = 'pm_categories_v11';
         const CONFIG_KEY = 'pm_config_v5';
+        const SAVINGS_KEY = 'adhd_savings_data_v2'; // ちょきん箱のKey
         const COLOR_PALETTE = [
             '#2563eb', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', 
             '#06b6d4', '#f97316', '#14b8a6', '#64748b', '#a3e635', '#fb7185'
@@ -315,7 +315,6 @@
         const init = () => {
             setTodayDate();
             document.getElementById('view-month').value = new Date().toISOString().substring(0, 7);
-            document.documentElement.className = localStorage.getItem('theme') || 'light';
             const savedSize = localStorage.getItem('pm_font_size') || '16';
             document.getElementById('font-slider').value = savedSize;
             changeFontSize(savedSize);
@@ -629,12 +628,61 @@
             });
         }
 
-        function exportData() { if (records.length === 0) return; const d = JSON.stringify({ records, categories, appConfig }, null, 2); const b = new Blob([d], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `maki_money_${new Date().toISOString().slice(0,10)}.json`; a.click(); showToast("保存しました！"); }
-        function importData(e) {
-            const f = e.target.files[0]; if (!f) return; const r = new FileReader();
-            r.onload = (ev) => { try { const i = JSON.parse(ev.target.result); if (confirm(`データを上書きしていい？`)) { records = i.records || records; categories = i.categories || categories; appConfig = i.appConfig || appConfig; saveData(); applyConfig(); updateCategoryUI(); render(); showToast("読み込みました！"); } } catch (err) { showToast("ダメだった！"); } };
-            r.readAsText(f); e.target.value = '';
+        // 一括バックアップに対応した保存機能
+        function exportData() {
+            const savingsData = JSON.parse(localStorage.getItem(SAVINGS_KEY));
+            if (records.length === 0 && !savingsData) return;
+            
+            const fullBackup = {
+                records,
+                categories,
+                appConfig,
+                savingsData // ちょきん箱のデータも同梱
+            };
+
+            const d = JSON.stringify(fullBackup, null, 2);
+            const b = new Blob([d], { type: 'application/json' });
+            const u = URL.createObjectURL(b);
+            const a = document.createElement('a');
+            a.href = u;
+            a.download = `maki_all_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            showToast("全てのデータをまとめて保存したよ！");
         }
+
+        // 一括バックアップに対応した読み込み機能
+        function importData(e) {
+            const f = e.target.files[0];
+            if (!f) return;
+            const r = new FileReader();
+            r.onload = (ev) => {
+                try {
+                    const i = JSON.parse(ev.target.result);
+                    if (confirm(`家計簿も貯金箱も、全てのデータが上書きされます。いい？`)) {
+                        // おこづかい帳のデータを更新
+                        records = i.records || records;
+                        categories = i.categories || categories;
+                        appConfig = i.appConfig || appConfig;
+                        
+                        // ちょきん箱のデータを更新
+                        if (i.savingsData) {
+                            localStorage.setItem(SAVINGS_KEY, JSON.stringify(i.savingsData));
+                        }
+                        
+                        saveData();
+                        applyConfig();
+                        updateCategoryUI();
+                        render();
+                        showToast("全てのデータを復元したよ！");
+                    }
+                } catch (err) {
+                    showToast("読み込みに失敗したよ…");
+                }
+            };
+            r.readAsText(f);
+            e.target.value = '';
+        }
+
         window.onload = init;
     </script>
 </body>
