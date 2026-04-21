@@ -9,6 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>おこづかい帳</title>
+    <!-- ダークモードの点滅防止用スクリプト。描画前に実行されるようにここに配置 -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -52,7 +63,6 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen p-4 md:p-8 pb-20 safe-pb font-sans font-medium">
     <div class="max-w-4xl mx-auto">
         <div class="mb-8 pt-4 space-y-6">
-            <!-- タイトルとちょきん箱へのリンクを横並びに修正 -->
             <div class="flex items-center gap-4">
                 <h1 class="text-[2.2rem] font-black tracking-tighter text-main">おこづかい帳</h1>
                 <a href="savings_manager.html" class="p-3 rounded-2xl bg-blue-500 shadow-lg shadow-blue-500/20 transition active:scale-90 text-white flex items-center justify-center">
